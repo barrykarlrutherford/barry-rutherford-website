@@ -646,7 +646,7 @@ section {
 
 .explore-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: var(--spacing-lg);
 }
 
@@ -707,14 +707,6 @@ section {
     flex: 1;
 }
 
-.explore-item:first-child .item-content {
-    padding: 2.5rem;
-}
-
-.explore-item:first-child h4 {
-    font-size: 1.875rem;
-    color: var(--accent-deep);
-}
 
 .explore-item h4 {
     margin-bottom: var(--spacing-xs);
@@ -895,7 +887,7 @@ section {
     }
     
     .explore-grid {
-        grid-template-columns: 1.3fr 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 }
 
