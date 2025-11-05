@@ -1,0 +1,39 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="communityGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dc2626;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ea580c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#communityGrad)"/>
+
+  <!-- Coffee shop building -->
+  <rect x="120" y="80" width="160" height="80" fill="rgba(255,255,255,0.9)" rx="8"/>
+  <rect x="130" y="90" width="140" height="60" fill="rgba(139,69,19,0.8)" rx="4"/>
+
+  <!-- Windows -->
+  <rect x="140" y="100" width="30" height="20" fill="rgba(255,255,255,0.7)" rx="2"/>
+  <rect x="180" y="100" width="30" height="20" fill="rgba(255,255,255,0.7)" rx="2"/>
+  <rect x="220" y="100" width="30" height="20" fill="rgba(255,255,255,0.7)" rx="2"/>
+
+  <!-- Door -->
+  <rect x="190" y="130" width="20" height="20" fill="rgba(101,67,33,1)" rx="2"/>
+  <circle cx="205" cy="140" r="1" fill="white"/>
+
+  <!-- Coffee sign -->
+  <circle cx="200" cy="65" r="15" fill="rgba(255,255,255,0.9)"/>
+  <text x="200" y="70" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12" font-weight="bold">☕</text>
+
+  <!-- People gathering -->
+  <circle cx="90" cy="130" r="8" fill="rgba(255,255,255,0.8)"/>
+  <rect x="85" y="138" width="10" height="15" fill="rgba(255,255,255,0.8)" rx="2"/>
+
+  <circle cx="320" cy="135" r="8" fill="rgba(255,255,255,0.8)"/>
+  <rect x="315" y="143" width="10" height="12" fill="rgba(255,255,255,0.8)" rx="2"/>
+
+  <circle cx="200" cy="170" r="6" fill="rgba(255,255,255,0.8)"/>
+  <rect x="196" y="176" width="8" height="10" fill="rgba(255,255,255,0.8)" rx="2"/>
+
+  <text x="200" y="195" text-anchor="middle" fill="white" font-family="sans-serif" font-size="14" font-weight="bold">THIRD PLACE</text>
+</svg>
