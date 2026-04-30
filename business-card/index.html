@@ -153,8 +153,8 @@
     }
 
     .portrait-panel {
-      width: min(100%, 22rem);
-      aspect-ratio: 1 / 1;
+      width: min(100%, 15rem);
+      aspect-ratio: 354 / 640;
       justify-self: center;
       isolation: isolate;
     }
@@ -171,7 +171,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 30%;
+      object-position: center;
       filter: saturate(1.05) contrast(1.02);
     }
 
@@ -190,6 +190,42 @@
       gap: 1.7rem;
     }
 
+    .contact-panel {
+      width: min(100%, 38rem);
+      justify-self: center;
+      padding: 0.85rem clamp(1rem, 4vw, 1.25rem);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.75rem;
+    }
+
+    .contact-link {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: var(--ink);
+      font-size: clamp(0.88rem, 2vw, 0.98rem);
+      font-weight: 700;
+      line-height: 1.2;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .contact-link i {
+      flex: 0 0 auto;
+      width: 1.85rem;
+      height: 1.85rem;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--primary-gold), var(--accent-wine));
+      box-shadow: 0 0 18px rgba(212, 165, 116, 0.28);
+    }
+
     .portrait-name {
       position: absolute;
       left: 1rem;
@@ -197,7 +233,7 @@
       bottom: clamp(0.72rem, 3vw, 1rem);
       z-index: 1;
       color: #ffffff;
-      font-size: clamp(1.48rem, 6vw, 2.3rem);
+      font-size: clamp(1.48rem, 6vw, 1.9rem);
       font-weight: 800;
       line-height: 0.9;
       letter-spacing: 0;
@@ -289,6 +325,10 @@
       .content-panel {
         min-height: auto;
       }
+
+      .contact-panel {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 420px) {
@@ -302,6 +342,10 @@
 
       .content-panel {
         padding: 1rem;
+      }
+
+      .contact-panel {
+        padding: 0.85rem 1rem;
       }
 
       .action {
@@ -339,6 +383,17 @@
         <h1 class="portrait-name">Barry Rutherford</h1>
       </div>
 
+      <div class="contact-panel glass" aria-label="Barry Rutherford contact details">
+        <a class="contact-link" href="mailto:barrykarkrutherford@gmail.com">
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          <span>barrykarkrutherford@gmail.com</span>
+        </a>
+        <a class="contact-link" href="tel:+12145050635">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>
+          <span>(214)-505-0635</span>
+        </a>
+      </div>
+
       <div class="content-panel glass">
         <div>
           <p class="role"><strong>Writer, Podcaster, and Strategic Advisor.</strong> After 45 years building businesses across four continents, now building stories, co-hosting Malestrum with his son Griffin, and helping companies navigate operations, strategy, and AI decisions.</p>
@@ -357,7 +412,7 @@
             </span>
             <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
           </a>
-          <a class="action" href="mailto:barry@barryrutherford.com">
+          <a class="action" href="mailto:barrykarkrutherford@gmail.com">
             <span class="action-text">
               <b>Email</b>
             </span>
