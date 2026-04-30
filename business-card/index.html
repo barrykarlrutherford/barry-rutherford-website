@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Barry Rutherford's online business card.">
+  <title>Barry Rutherford | Business Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --ink: #fffaf3;
+      --muted: rgba(255, 250, 243, 0.74);
+      --line: rgba(255, 255, 255, 0.2);
+      --glass: rgba(43, 27, 18, 0.46);
+      --primary-gold: #d4a574;
+      --primary-copper: #9f5e31;
+      --accent-wine: #7f2636;
+      --accent-amber: #f0bd7f;
+      --night: #1a0f0a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--night);
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: Inter, Arial, sans-serif;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(212, 165, 116, 0.48), transparent 28rem),
+        radial-gradient(circle at 84% 18%, rgba(127, 38, 54, 0.48), transparent 27rem),
+        radial-gradient(circle at 70% 90%, rgba(159, 94, 49, 0.36), transparent 26rem),
+        linear-gradient(135deg, #1a0f0a 0%, #3a2116 45%, #1a0a0d 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent 24%, rgba(255, 255, 255, 0.08) 48%, transparent 66%),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 90px),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 90px);
+      mix-blend-mode: screen;
+      opacity: 0.78;
+    }
+
+    .liquid-field {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      filter: blur(2px) saturate(1.18);
+      opacity: 0.84;
+    }
+
+    .liquid-field span {
+      position: absolute;
+      display: block;
+      border-radius: 999px;
+      transform: rotate(-18deg);
+      animation: drift 13s ease-in-out infinite alternate;
+    }
+
+    .liquid-field span:nth-child(1) {
+      width: 32rem;
+      height: 13rem;
+      left: -7rem;
+      top: 14%;
+      background: linear-gradient(90deg, rgba(212, 165, 116, 0.38), rgba(240, 189, 127, 0.2));
+    }
+
+    .liquid-field span:nth-child(2) {
+      width: 24rem;
+      height: 10rem;
+      right: -6rem;
+      top: 34%;
+      background: linear-gradient(90deg, rgba(127, 38, 54, 0.38), rgba(212, 165, 116, 0.2));
+      animation-delay: -5s;
+    }
+
+    .liquid-field span:nth-child(3) {
+      width: 28rem;
+      height: 11rem;
+      left: 24%;
+      bottom: 5%;
+      background: linear-gradient(90deg, rgba(159, 94, 49, 0.28), rgba(127, 38, 54, 0.22));
+      animation-delay: -8s;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: clamp(1rem, 4vw, 3rem);
+    }
+
+    .card-shell {
+      width: min(100%, 38rem);
+      display: grid;
+      gap: 1rem;
+    }
+
+    .glass {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(43, 27, 18, 0.36) 38%, rgba(127, 38, 54, 0.13)),
+        var(--glass);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -28px 54px rgba(26, 15, 10, 0.3),
+        0 34px 90px rgba(0, 0, 0, 0.38);
+      backdrop-filter: blur(28px) saturate(1.45);
+      -webkit-backdrop-filter: blur(28px) saturate(1.45);
+    }
+
+    .glass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.32), transparent 16rem),
+        linear-gradient(120deg, rgba(255, 255, 255, 0.16), transparent 18%, transparent 58%, rgba(255, 255, 255, 0.1));
+      opacity: 0.58;
+    }
+
+    .glass::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: 27px;
+      pointer-events: none;
+      box-shadow: inset 0 0 42px rgba(255, 255, 255, 0.14);
+    }
+
+    .portrait-panel {
+      width: min(100%, 22rem);
+      aspect-ratio: 1 / 1;
+      justify-self: center;
+      isolation: isolate;
+    }
+
+    .portrait-panel::before,
+    .portrait-panel::after {
+      content: none;
+    }
+
+    .portrait-panel img {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      filter: saturate(1.05) contrast(1.02);
+    }
+
+    .portrait-panel .image-wash {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(180deg, transparent 46%, rgba(26, 15, 10, 0.82));
+    }
+
+    .content-panel {
+      padding: clamp(1.2rem, 4vw, 2rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.7rem;
+    }
+
+    .portrait-name {
+      position: absolute;
+      left: 1rem;
+      right: 1rem;
+      bottom: clamp(0.72rem, 3vw, 1rem);
+      z-index: 1;
+      color: #ffffff;
+      font-size: clamp(1.48rem, 6vw, 2.3rem);
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.88),
+        0 8px 24px rgba(0, 0, 0, 0.62);
+    }
+
+    .role {
+      color: var(--muted);
+      font-size: clamp(1rem, 2.2vw, 1.22rem);
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .role strong {
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+      gap: 0.75rem;
+    }
+
+    .action {
+      min-height: 4.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem;
+      padding: 0.92rem 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 18px;
+      color: var(--ink);
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.1);
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .action-text {
+      min-width: 0;
+    }
+
+    .action:hover,
+    .action:focus-visible {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.18);
+      outline: none;
+    }
+
+    .action b {
+      display: block;
+      font-size: clamp(0.95rem, 1.9vw, 1rem);
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+    }
+
+    .action i {
+      flex: 0 0 auto;
+      width: 2.1rem;
+      height: 2.1rem;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--primary-gold), var(--accent-wine));
+      box-shadow: 0 0 22px rgba(212, 165, 116, 0.32);
+    }
+
+    @keyframes drift {
+      from {
+        transform: translate3d(0, 0, 0) rotate(-18deg) scale(1);
+      }
+      to {
+        transform: translate3d(2rem, -1.4rem, 0) rotate(-10deg) scale(1.08);
+      }
+    }
+
+    @media (max-width: 880px) {
+      .page {
+        align-items: start;
+        padding: 0.85rem;
+      }
+
+      .content-panel {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .glass {
+        border-radius: 22px;
+      }
+
+      .glass::after {
+        border-radius: 21px;
+      }
+
+      .content-panel {
+        padding: 1rem;
+      }
+
+      .action {
+        min-height: 3.9rem;
+      }
+
+      .action b {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .liquid-field span {
+        animation: none;
+      }
+
+      .action {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="liquid-field" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <main class="page">
+    <section class="card-shell" aria-label="Barry Rutherford business card">
+      <div class="portrait-panel glass">
+        <img src="../images/barry-headshot.jpg" alt="Barry Rutherford">
+        <div class="image-wash" aria-hidden="true"></div>
+        <h1 class="portrait-name">Barry Rutherford</h1>
+      </div>
+
+      <div class="content-panel glass">
+        <div>
+          <p class="role"><strong>Writer, Podcaster, and Strategic Advisor.</strong> After 45 years building businesses across four continents, now building stories, co-hosting Malestrum with his son Griffin, and helping companies navigate operations, strategy, and AI decisions.</p>
+        </div>
+
+        <nav class="actions" aria-label="Business card links">
+          <a class="action" href="../">
+            <span class="action-text">
+              <b>Portfolio</b>
+            </span>
+            <i class="fa-solid fa-house" aria-hidden="true"></i>
+          </a>
+          <a class="action" href="https://www.linkedin.com/in/barrykrutherford" target="_blank" rel="noopener noreferrer">
+            <span class="action-text">
+              <b>LinkedIn</b>
+            </span>
+            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+          </a>
+          <a class="action" href="mailto:barry@barryrutherford.com">
+            <span class="action-text">
+              <b>Email</b>
+            </span>
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          </a>
+          <a class="action" href="barry-rutherford.vcf">
+            <span class="action-text">
+              <b>Save Contact</b>
+            </span>
+            <i class="fa-solid fa-address-card" aria-hidden="true"></i>
+          </a>
+          <a class="action" href="https://malestrum.com/" target="_blank" rel="noopener noreferrer">
+            <span class="action-text">
+              <b>Malestrum Podcast</b>
+            </span>
+            <i class="fa-solid fa-podcast" aria-hidden="true"></i>
+          </a>
+          <a class="action" href="https://breakwaterops.com/" target="_blank" rel="noopener noreferrer">
+            <span class="action-text">
+              <b>Breakwater Operations</b>
+            </span>
+            <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+          </a>
+        </nav>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
