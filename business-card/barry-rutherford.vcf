@@ -2,11 +2,13 @@ BEGIN:VCARD
 VERSION:3.0
 N:Rutherford;Barry;;;
 FN:Barry Rutherford
-TITLE:Writer, Podcaster, Strategic Advisor
+ORG:Breakwater Operations
+TITLE:Writer\, Podcaster\, Strategic Advisor
 EMAIL;TYPE=INTERNET:barrykarkrutherford@gmail.com
 TEL;TYPE=CELL:+12145050635
-URL:https://barryrutherford.com/
-URL:https://www.linkedin.com/in/barrykrutherford
+URL:https://barryrutherford.com
+URL:https://www.linkedin.com/in/barrykrutherford/
 URL:https://malestrum.com/
 URL:https://breakwaterops.com/
+NOTE:Writer\, podcaster\, and strategic advisor. Co-host of Malestrum: The Third Phase and founder of Breakwater Operations.
 END:VCARD
