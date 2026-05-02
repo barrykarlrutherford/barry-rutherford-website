@@ -715,6 +715,17 @@ section {
     font-weight: 500;
 }
 
+.explore-item h4 a {
+    color: inherit;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.explore-item h4 a:hover {
+    color: var(--accent-deep);
+    border-bottom-color: var(--accent-gold);
+}
+
 .item-author {
     font-style: italic;
     color: var(--text-light);
@@ -726,6 +737,23 @@ section {
     color: var(--text-medium);
     line-height: 1.7;
     font-size: 1.0625rem;
+}
+
+.item-link {
+    display: inline-block;
+    margin-top: var(--spacing-sm);
+    color: var(--accent-deep);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.975rem;
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent-gold);
+    padding-bottom: 2px;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.item-link:hover {
+    color: var(--accent-gold);
+    border-bottom-color: transparent;
 }
 
 
@@ -818,8 +846,23 @@ section {
 }
 
 .link-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-size: 1.75rem;
     font-weight: bold;
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.link-icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 /* ===================================
