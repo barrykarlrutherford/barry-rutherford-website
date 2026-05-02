@@ -376,7 +376,7 @@ section {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: var(--spacing-lg);
 }
 
@@ -526,35 +526,39 @@ section {
     font-style: italic;
 }
 
-.writing-placeholder {
-    padding: var(--spacing-xl);
+.writing-projects {
+    display: grid;
+    gap: var(--spacing-md);
+    text-align: left;
+}
+
+.writing-project {
     background: linear-gradient(135deg, var(--section-warm) 0%, var(--section-rich) 100%);
-    border: 3px dashed var(--accent-gold);
-    position: relative;
+    border-left: 5px solid var(--accent-gold);
+    padding: var(--spacing-md);
+    box-shadow: 0 4px 20px rgba(26, 15, 10, 0.08);
 }
 
-.writing-placeholder::before {
-    content: '✒';
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    font-size: 4rem;
-    color: rgba(212, 165, 116, 0.2);
+.writing-project h3 {
+    color: var(--primary-dark);
+    font-size: 1.625rem;
+    margin-bottom: var(--spacing-xs);
 }
 
-.placeholder-text {
-    font-size: 2rem;
-    color: var(--text-dark);
-    margin-bottom: var(--spacing-sm);
-    font-weight: 400;
+.writing-project p {
+    color: var(--text-medium);
+    line-height: 1.7;
+    margin-bottom: 0;
 }
 
-.placeholder-subtext {
+.writing-note {
     color: var(--text-medium);
     font-size: 1.125rem;
+    line-height: 1.7;
+    margin-top: var(--spacing-lg);
 }
 
-.placeholder-subtext a {
+.writing-note a {
     color: var(--accent-deep);
     font-weight: 600;
     border-bottom: 2px solid var(--accent-gold);
@@ -698,6 +702,15 @@ section {
     transition: transform 0.3s ease;
 }
 
+.explore-category:first-of-type .item-image {
+    background: linear-gradient(135deg, rgba(212, 165, 116, 0.18), rgba(255, 255, 255, 0.7));
+    padding: var(--spacing-sm);
+}
+
+.explore-category:first-of-type .item-image img {
+    object-fit: contain;
+}
+
 .explore-item:hover .item-image img {
     transform: scale(1.05);
 }
@@ -756,6 +769,38 @@ section {
     border-bottom-color: transparent;
 }
 
+.reading-list {
+    display: grid;
+    gap: var(--spacing-sm);
+}
+
+.reading-list a {
+    display: grid;
+    gap: 0.35rem;
+    background: var(--card-bg);
+    border-left: 5px solid var(--accent-gold);
+    box-shadow: 0 4px 20px rgba(26, 15, 10, 0.08);
+    padding: var(--spacing-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-left-width 0.3s ease;
+}
+
+.reading-list a:hover {
+    transform: translateX(8px);
+    box-shadow: 0 8px 32px rgba(26, 15, 10, 0.12);
+    border-left-width: 8px;
+}
+
+.reading-list strong {
+    color: var(--primary-dark);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.reading-list span {
+    color: var(--text-medium);
+    line-height: 1.6;
+}
+
 
 /* ===================================
    CONNECT SECTION - INVITING
@@ -782,7 +827,7 @@ section {
 
 .connect-content {
     text-align: center;
-    max-width: 700px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
@@ -796,15 +841,15 @@ section {
 .connect-links {
     display: flex;
     justify-content: center;
-    gap: var(--spacing-lg);
-    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    flex-wrap: nowrap;
 }
 
 .connect-link {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
-    padding: 1.25rem 2.5rem;
+    padding: 1.125rem 1.5rem;
     border: 3px solid var(--accent-gold);
     background: var(--card-bg);
     color: var(--accent-deep);
@@ -815,6 +860,7 @@ section {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .connect-link::before {
@@ -963,6 +1009,10 @@ section {
     
     .explore-grid {
         grid-template-columns: 1fr;
+    }
+
+    .connect-links {
+        flex-wrap: wrap;
     }
     
     .about-content {
