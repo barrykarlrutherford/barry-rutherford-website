@@ -280,6 +280,31 @@
       min-width: 0;
     }
 
+    .primary-action {
+      justify-self: center;
+      width: min(100%, 38rem);
+      min-height: 4.8rem;
+      background: rgba(212, 165, 116, 0.15);
+      border-color: rgba(212, 165, 116, 0.4);
+      box-shadow: 0 4px 20px rgba(212, 165, 116, 0.1);
+    }
+
+    .primary-action:hover {
+      background: rgba(212, 165, 116, 0.25);
+      border-color: rgba(212, 165, 116, 0.6);
+      box-shadow: 0 6px 24px rgba(212, 165, 116, 0.2);
+    }
+
+    .primary-action b {
+      font-size: 1.15rem;
+      color: #fff;
+    }
+
+    .primary-action i {
+      color: var(--primary-gold);
+      font-size: 1.15rem;
+    }
+
     .action:hover,
     .action:focus-visible {
       transform: translateY(-3px);
@@ -352,6 +377,10 @@
         min-height: 3.9rem;
       }
 
+      .primary-action {
+        min-height: 4.2rem;
+      }
+
       .action b {
         font-size: 0.95rem;
       }
@@ -382,6 +411,13 @@
         <div class="image-wash" aria-hidden="true"></div>
         <h1 class="portrait-name">Barry Rutherford</h1>
       </div>
+
+      <a class="action primary-action" href="barry-rutherford.vcf">
+        <span class="action-text">
+          <b>Save Contact</b>
+        </span>
+        <i class="fa-solid fa-address-card" aria-hidden="true"></i>
+      </a>
 
       <div class="contact-panel glass" aria-label="Barry Rutherford contact details">
         <a class="contact-link" href="mailto:barrykarkrutherford@gmail.com">
@@ -417,12 +453,6 @@
               <b>Email</b>
             </span>
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-          </a>
-          <a class="action" href="/business-card/barry-rutherford.vcf">
-            <span class="action-text">
-              <b>Save Contact</b>
-            </span>
-            <i class="fa-solid fa-address-card" aria-hidden="true"></i>
           </a>
           <a class="action" href="https://malestrum.com/" target="_blank" rel="noopener noreferrer">
             <span class="action-text">
