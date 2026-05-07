@@ -801,6 +801,141 @@ section {
     line-height: 1.6;
 }
 
+.news-widget {
+    background: var(--card-bg);
+    border-left: 6px solid var(--accent-gold);
+    box-shadow: 0 8px 32px rgba(26, 15, 10, 0.08);
+    padding: var(--spacing-md);
+}
+
+.news-widget-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: var(--spacing-sm);
+}
+
+.news-widget-header p {
+    max-width: 760px;
+    margin-bottom: 0;
+    color: var(--text-medium);
+}
+
+.news-widget-header span {
+    flex: 0 0 auto;
+    color: var(--text-light);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+.news-source-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.news-source-tabs button {
+    border: 1px solid var(--border-accent);
+    background: var(--primary-light);
+    color: var(--accent-deep);
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 0.55rem 0.8rem;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.news-source-tabs button:hover,
+.news-source-tabs button.active {
+    background: var(--accent-deep);
+    color: var(--primary-light);
+    transform: translateY(-1px);
+}
+
+.news-feed-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-md);
+}
+
+.news-feed-item {
+    min-height: 100%;
+    background: linear-gradient(135deg, var(--primary-light) 0%, rgba(212, 165, 116, 0.08) 100%);
+    border-top: 4px solid var(--accent-gold);
+    padding: var(--spacing-md);
+}
+
+.news-item-source {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-light);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.news-feed-item h4 {
+    margin-bottom: var(--spacing-xs);
+    font-size: 1.35rem;
+    letter-spacing: 0;
+}
+
+.news-feed-item p {
+    color: var(--text-medium);
+    font-size: 1rem;
+    line-height: 1.65;
+    margin-bottom: var(--spacing-sm);
+}
+
+.news-feed-item a:last-child {
+    border-bottom: 2px solid var(--accent-gold);
+    color: var(--accent-deep);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 700;
+}
+
+.news-direct-sources {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.85rem;
+    margin-top: var(--spacing-md);
+    border-top: 1px solid var(--border-light);
+    padding-top: var(--spacing-sm);
+    color: var(--text-light);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.9375rem;
+}
+
+.news-direct-sources a {
+    border-bottom: 2px solid var(--accent-gold);
+    color: var(--accent-deep);
+    font-weight: 700;
+}
+
+.news-fallback {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.news-fallback a {
+    border-bottom: 2px solid var(--accent-gold);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 700;
+}
+
 
 /* ===================================
    CONNECT SECTION - INVITING
@@ -979,6 +1114,10 @@ section {
     .explore-grid {
         grid-template-columns: 1fr 1fr;
     }
+
+    .news-feed-list {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1013,6 +1152,16 @@ section {
 
     .connect-links {
         flex-wrap: wrap;
+    }
+
+    .news-widget-header {
+        display: block;
+    }
+
+    .news-widget-header span {
+        display: block;
+        margin-top: var(--spacing-xs);
+        white-space: normal;
     }
     
     .about-content {
