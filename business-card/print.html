@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Barry Rutherford | Print Business Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --card-width: 3.5in;
+      --card-height: 2in;
+      --front-ink: #2a1810;
+      --front-muted: #5a4a3a;
+      --front-gold: #d4a574;
+      --front-copper: #8b6236;
+      --front-wine: #7f2636;
+      --front-paper: #faf6f0;
+      --malestrum-ink: #33334c;
+      --malestrum-accent: #498cb7;
+      --malestrum-gray-100: #f5f5f5;
+      --malestrum-gray-200: #ececec;
+      --breakwater-ink: #17202a;
+      --breakwater-navy: #1d3548;
+      --breakwater-teal: #287271;
+      --breakwater-gold: #b7791f;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 0.35in;
+      background: #e1e5e6;
+      color: var(--front-ink);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .card-stack {
+      display: grid;
+      gap: 0.28in;
+    }
+
+    .card-page {
+      display: grid;
+      gap: 0.075in;
+    }
+
+    .side-name {
+      margin: 0;
+      color: #53616f;
+      font: 700 0.78rem/1 Inter, Arial, sans-serif;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .business-card {
+      position: relative;
+      width: var(--card-width);
+      height: var(--card-height);
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid rgba(42, 24, 16, 0.18);
+      box-shadow: 0 0.18in 0.55in rgba(42, 24, 16, 0.22);
+      isolation: isolate;
+    }
+
+    .front-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 0.82in;
+      gap: 0.14in;
+      padding: 0.18in;
+      background:
+        radial-gradient(circle at 17% 82%, rgba(127, 38, 54, 0.075), transparent 0.68in),
+        radial-gradient(circle at 88% 18%, rgba(212, 165, 116, 0.09), transparent 0.66in),
+        linear-gradient(135deg, rgba(212, 165, 116, 0.08), transparent 44%),
+        linear-gradient(168deg, transparent 0 64%, rgba(139, 98, 54, 0.04) 64% 100%),
+        linear-gradient(135deg, var(--front-paper), #ffffff 56%, #f8eee0);
+    }
+
+    .front-main {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.08in;
+    }
+
+    .front-identity {
+      display: grid;
+      gap: 0.035in;
+    }
+
+    .front-eyebrow {
+      color: var(--front-wine);
+      font-size: 6.5pt;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .front-card h1 {
+      margin: 0;
+      color: var(--front-ink);
+      font-family: Garamond, Baskerville, Georgia, serif;
+      font-size: 21pt;
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: 0;
+    }
+
+    .front-title {
+      margin: 0;
+      max-width: 1.98in;
+      color: var(--front-muted);
+      font-size: 7.6pt;
+      font-weight: 700;
+      line-height: 1.18;
+    }
+
+    .front-title span {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .front-title .accent {
+      color: var(--front-copper);
+    }
+
+    .front-contact {
+      display: grid;
+      grid-template-columns: 0.56in minmax(0, 1fr);
+      gap: 0.035in 0.065in;
+      align-items: baseline;
+      color: var(--front-ink);
+      font-size: 6.9pt;
+      line-height: 1.14;
+    }
+
+    .front-label {
+      color: var(--front-copper);
+      font-size: 5.6pt;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .front-value {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      font-weight: 700;
+    }
+
+    .front-side {
+      display: grid;
+      align-content: center;
+      justify-items: end;
+      min-width: 0;
+    }
+
+    .front-qr-placeholder {
+      width: 0.74in;
+      height: 0.74in;
+      align-self: center;
+      display: grid;
+      place-items: center;
+      padding: 0.065in;
+      background:
+        linear-gradient(90deg, rgba(42, 24, 16, 0.18) 1px, transparent 1px) 0 0 / 0.18in 0.18in,
+        linear-gradient(rgba(42, 24, 16, 0.18) 1px, transparent 1px) 0 0 / 0.18in 0.18in,
+        #ffffff;
+      border: 1px solid var(--front-ink);
+    }
+
+    .front-qr-placeholder span {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      border: 1px dashed rgba(42, 24, 16, 0.58);
+      color: var(--front-muted);
+      font-size: 5.8pt;
+      font-weight: 800;
+      line-height: 1.05;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .back-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-color: rgba(23, 32, 42, 0.22);
+      box-shadow: 0 0.18in 0.55in rgba(23, 32, 42, 0.22);
+    }
+
+    .back-half {
+      position: relative;
+      min-width: 0;
+      height: 100%;
+      padding: 0.12in 0.13in 0.105in;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.045in;
+      overflow: hidden;
+    }
+
+    .back-half > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .malestrum {
+      color: var(--malestrum-ink);
+      font-family: "Figtree", Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 16% 14%, rgba(73, 140, 183, 0.16), transparent 0.52in),
+        linear-gradient(180deg, #ffffff 0%, var(--malestrum-gray-100) 100%);
+    }
+
+    .malestrum::before {
+      content: "";
+      position: absolute;
+      inset: 0.1in 0.08in auto auto;
+      width: 0.62in;
+      height: 0.62in;
+      border-radius: 0.12in;
+      background:
+        linear-gradient(var(--malestrum-gray-200) 0.02in, transparent 0.02in) 0 0 / 100% 0.14in,
+        linear-gradient(90deg, var(--malestrum-gray-200) 0.02in, transparent 0.02in) 0 0 / 0.14in 100%,
+        rgba(255, 255, 255, 0.62);
+      opacity: 0.48;
+    }
+
+    .breakwater {
+      color: #ffffff;
+      font-family: "Inter", Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 88% 15%, rgba(183, 121, 31, 0.28), transparent 0.48in),
+        linear-gradient(135deg, var(--breakwater-navy) 0%, var(--breakwater-teal) 100%);
+    }
+
+    .breakwater::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, transparent 0 44%, rgba(255, 255, 255, 0.08) 44% 45%, transparent 45% 100%),
+        repeating-linear-gradient(165deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 0.16in);
+      opacity: 0.34;
+    }
+
+    .breakwater::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.16in;
+      bottom: 0.16in;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.34);
+    }
+
+    .brand-block {
+      display: grid;
+      gap: 0.045in;
+    }
+
+    .back-kicker {
+      margin: 0 0 0.025in;
+      font-size: 5pt;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .malestrum .back-kicker {
+      color: var(--malestrum-accent);
+    }
+
+    .breakwater .back-kicker {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .brand-logo {
+      display: block;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .malestrum-logo-line {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .malestrum .brand-logo {
+      width: 1.32in;
+      height: auto;
+      margin-left: -0.02in;
+    }
+
+    .logo-colon {
+      color: var(--malestrum-ink);
+      font-size: 15pt;
+      font-weight: 800;
+      line-height: 0.8;
+      margin-left: -0.012in;
+      transform: translateY(-0.01in);
+    }
+
+
+    .breakwater-logo-plate {
+      position: relative;
+      width: 1.23in;
+      height: 0.48in;
+      overflow: hidden;
+      border-radius: 0.045in;
+      background: rgba(252, 250, 247, 0.96);
+      box-shadow: 0 0.035in 0.12in rgba(0, 0, 0, 0.16);
+    }
+
+    .breakwater .brand-logo {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1.23in;
+      height: 1.23in;
+      max-width: none;
+      object-fit: cover;
+      object-position: center center;
+      transform: translate(-50%, -52%);
+    }
+
+    .back-subtitle {
+      margin: 0;
+      max-width: 1.28in;
+      font-size: 6pt;
+      font-weight: 700;
+      line-height: 1.18;
+    }
+
+    .malestrum .back-subtitle {
+      color: rgba(51, 51, 76, 0.78);
+      width: calc(100% + 0.12in);
+      max-width: none;
+      margin-right: -0.1in;
+      text-align: right;
+    }
+
+    .breakwater .back-subtitle {
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    .back-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.028in;
+      margin-top: 0.01in;
+    }
+
+    .back-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 0.112in;
+      padding: 0.022in 0.048in;
+      border-radius: 0.035in;
+      font-size: 4.45pt;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .malestrum .back-chip {
+      color: var(--malestrum-ink);
+      background: var(--malestrum-gray-200);
+    }
+
+    .malestrum .back-chip:first-child {
+      color: #ffffff;
+      background: var(--malestrum-accent);
+    }
+
+    .breakwater .back-chip {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .breakwater .back-chip:first-child {
+      color: var(--breakwater-ink);
+      background: var(--breakwater-gold);
+      border-color: var(--breakwater-gold);
+    }
+
+    .back-qr-row {
+      display: grid;
+      grid-template-columns: 0.66in minmax(0, 1fr);
+      gap: 0.055in;
+      align-items: end;
+    }
+
+    .back-qr-card {
+      width: 0.66in;
+      height: 0.66in;
+      display: grid;
+      place-items: center;
+      padding: 0.035in;
+      background: #ffffff;
+    }
+
+    .malestrum .back-qr-card {
+      border: 2px solid var(--malestrum-accent);
+      border-radius: 0.065in;
+      box-shadow: 0 0.025in 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .breakwater .back-qr-card {
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      border-radius: 0.045in;
+      box-shadow: 0 0.035in 0.12in rgba(0, 0, 0, 0.16);
+    }
+
+    .back-qr-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .back-scan {
+      min-width: 0;
+      display: grid;
+      gap: 0.022in;
+    }
+
+    .back-scan b {
+      display: block;
+      font-size: 5.15pt;
+      font-weight: 800;
+      line-height: 1.04;
+      text-transform: uppercase;
+    }
+
+    .back-scan span {
+      display: block;
+      font-size: 4.95pt;
+      font-weight: 700;
+      line-height: 1.08;
+      overflow-wrap: anywhere;
+    }
+
+    .malestrum .back-scan span {
+      color: rgba(51, 51, 76, 0.66);
+    }
+
+    .breakwater .back-scan span {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .trim-note {
+      position: fixed;
+      left: 1rem;
+      bottom: 1rem;
+      color: #53616f;
+      font: 0.8rem/1.3 Inter, Arial, sans-serif;
+    }
+
+    @media print {
+      @page {
+        size: 3.5in 2in;
+        margin: 0;
+      }
+
+      html,
+      body {
+        width: var(--card-width);
+        height: var(--card-height);
+        min-height: 0;
+      }
+
+      body {
+        display: block;
+        padding: 0;
+        background: #ffffff;
+      }
+
+      .card-stack,
+      .card-page {
+        display: block;
+      }
+
+      .card-page {
+        width: var(--card-width);
+        height: var(--card-height);
+        page-break-after: always;
+        break-after: page;
+      }
+
+      .card-page:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+
+      .business-card {
+        width: var(--card-width);
+        height: var(--card-height);
+        border: 0;
+        box-shadow: none;
+      }
+
+      .side-name,
+      .trim-note {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card-stack">
+    <section class="card-page" aria-label="Front of Barry Rutherford business card">
+      <p class="side-name">Front</p>
+      <main class="business-card front-card">
+        <section class="front-main" aria-label="Contact information">
+          <div class="front-identity">
+            <div class="front-eyebrow">Writer &middot; Podcaster &middot; Advisor</div>
+            <h1>Barry Rutherford</h1>
+            <p class="front-title">
+              <span>Breakwater Operations</span>
+              <span>Malestrum: Third Phase</span>
+              <span class="accent">Strategic AI &amp; Business Counsel</span>
+            </p>
+          </div>
+
+          <div class="front-contact">
+            <div class="front-label">Email</div>
+            <div class="front-value">barrykarlrutherford@gmail.com</div>
+            <div class="front-label">Phone</div>
+            <div class="front-value">(214) 505-0635</div>
+            <div class="front-label">Web</div>
+            <div class="front-value">barryrutherford.com</div>
+          </div>
+        </section>
+
+        <aside class="front-side" aria-label="QR code placeholder">
+          <div class="front-qr-placeholder" aria-label="QR code placeholder">
+            <span>QR<br>Code</span>
+          </div>
+        </aside>
+      </main>
+    </section>
+
+    <section class="card-page" aria-label="Back of business card">
+      <p class="side-name">Back</p>
+      <main class="business-card back-card">
+        <section class="back-half malestrum" aria-label="Malestrum half">
+          <div class="brand-block">
+            <p class="back-kicker">Podcast &amp; essays</p>
+            <div class="malestrum-logo-line">
+              <img class="brand-logo" src="../images/malestrum-logo.png" alt="Malestrum">
+              <span class="logo-colon" aria-hidden="true">:</span>
+            </div>
+            <p class="back-subtitle">The Third Phase</p>
+            <div class="back-chips" aria-label="Malestrum topics">
+              <span class="back-chip">Podcast</span>
+              <span class="back-chip">Culture</span>
+              <span class="back-chip">Third Phase</span>
+            </div>
+          </div>
+
+          <div class="back-qr-row">
+            <div class="back-qr-card">
+              <img src="malestrum-qr.svg" alt="QR code for Malestrum">
+            </div>
+            <div class="back-scan">
+              <b>Scan for episodes &amp; essays</b>
+              <span>malestrum.com</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="back-half breakwater" aria-label="Breakwater Operations half">
+          <div class="brand-block">
+            <p class="back-kicker">Strategic AI consulting</p>
+            <div class="breakwater-logo-plate">
+              <img class="brand-logo" src="../images/breakwater-logo.png" alt="Breakwater Operations">
+            </div>
+            <p class="back-subtitle">Strategy before tools. Honest counsel over hype.</p>
+            <div class="back-chips" aria-label="Breakwater services">
+              <span class="back-chip">AI audit</span>
+              <span class="back-chip">Readiness</span>
+              <span class="back-chip">Advisory</span>
+            </div>
+          </div>
+
+          <div class="back-qr-row">
+            <div class="back-qr-card">
+              <img src="breakwater-qr.svg" alt="QR code for Breakwater Operations">
+            </div>
+            <div class="back-scan">
+              <b>Scan for services &amp; consultation</b>
+              <span>breakwaterops.com</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </section>
+  </div>
+
+  <div class="trim-note" aria-hidden="true">3.5in x 2in print artboards: front, then back</div>
+</body>
+</html>
