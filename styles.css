@@ -203,15 +203,14 @@ section {
     margin: 0 auto;
     padding: 0 var(--spacing-md);
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: var(--spacing-xl);
-    align-items: center;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-lg);
     position: relative;
     z-index: 1;
 }
 
 .hero-content {
-    padding-right: var(--spacing-lg);
+    max-width: 980px;
 }
 
 .hero-title {
@@ -240,16 +239,19 @@ section {
 }
 
 .hero-image {
+    margin: 0;
     position: relative;
 }
 
 #hero-photo {
     width: 100%;
-    height: auto;
+    height: clamp(300px, 42vw, 500px);
+    object-fit: cover;
+    object-position: center 61%;
     border-radius: 0;
     box-shadow: 
-        20px 20px 0 rgba(212, 165, 116, 0.15),
-        40px 40px 0 rgba(212, 165, 116, 0.08);
+        14px 14px 0 rgba(212, 165, 116, 0.15),
+        28px 28px 0 rgba(212, 165, 116, 0.08);
     border: 3px solid var(--accent-gold);
     transition: transform 0.4s ease;
 }
@@ -258,7 +260,7 @@ section {
     transform: translate(-5px, -5px);
 }
 
-.photo-credit {
+.photo-caption {
     margin-top: var(--spacing-sm);
     font-size: 0.875rem;
     color: var(--text-light);
@@ -551,6 +553,33 @@ section {
     margin-bottom: 0;
 }
 
+.writing-excerpt {
+    margin-top: var(--spacing-md);
+    border-top: 1px solid rgba(139, 98, 54, 0.25);
+    padding-top: var(--spacing-md);
+}
+
+.writing-excerpt p {
+    color: var(--text-dark);
+    font-size: 1.125rem;
+    font-style: italic;
+}
+
+.writing-excerpt cite {
+    display: block;
+    margin-top: var(--spacing-sm);
+    color: var(--text-light);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.875rem;
+    font-style: normal;
+    line-height: 1.5;
+}
+
+.writing-excerpt a {
+    border-bottom: 1px solid var(--accent-gold);
+    font-weight: 600;
+}
+
 .writing-note {
     color: var(--text-medium);
     font-size: 1.125rem;
@@ -771,7 +800,13 @@ section {
 
 .reading-list {
     display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--spacing-sm);
+}
+
+.category-intro {
+    max-width: 760px;
+    color: var(--text-medium);
 }
 
 .reading-list a {
@@ -800,142 +835,6 @@ section {
     color: var(--text-medium);
     line-height: 1.6;
 }
-
-.news-widget {
-    background: var(--card-bg);
-    border-left: 6px solid var(--accent-gold);
-    box-shadow: 0 8px 32px rgba(26, 15, 10, 0.08);
-    padding: var(--spacing-md);
-}
-
-.news-widget-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-    border-bottom: 1px solid var(--border-light);
-    padding-bottom: var(--spacing-sm);
-}
-
-.news-widget-header p {
-    max-width: 760px;
-    margin-bottom: 0;
-    color: var(--text-medium);
-}
-
-.news-widget-header span {
-    flex: 0 0 auto;
-    color: var(--text-light);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 0.875rem;
-    line-height: 1.5;
-    white-space: nowrap;
-}
-
-.news-source-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: var(--spacing-md);
-}
-
-.news-source-tabs button {
-    border: 1px solid var(--border-accent);
-    background: var(--primary-light);
-    color: var(--accent-deep);
-    cursor: pointer;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    padding: 0.55rem 0.8rem;
-    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-}
-
-.news-source-tabs button:hover,
-.news-source-tabs button.active {
-    background: var(--accent-deep);
-    color: var(--primary-light);
-    transform: translateY(-1px);
-}
-
-.news-feed-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--spacing-md);
-}
-
-.news-feed-item {
-    min-height: 100%;
-    background: linear-gradient(135deg, var(--primary-light) 0%, rgba(212, 165, 116, 0.08) 100%);
-    border-top: 4px solid var(--accent-gold);
-    padding: var(--spacing-md);
-}
-
-.news-item-source {
-    display: block;
-    margin-bottom: var(--spacing-xs);
-    color: var(--text-light);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 0.8125rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-.news-feed-item h4 {
-    margin-bottom: var(--spacing-xs);
-    font-size: 1.35rem;
-    letter-spacing: 0;
-}
-
-.news-feed-item p {
-    color: var(--text-medium);
-    font-size: 1rem;
-    line-height: 1.65;
-    margin-bottom: var(--spacing-sm);
-}
-
-.news-feed-item a:last-child {
-    border-bottom: 2px solid var(--accent-gold);
-    color: var(--accent-deep);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 0.9375rem;
-    font-weight: 700;
-}
-
-.news-direct-sources {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 0.85rem;
-    margin-top: var(--spacing-md);
-    border-top: 1px solid var(--border-light);
-    padding-top: var(--spacing-sm);
-    color: var(--text-light);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 0.9375rem;
-}
-
-.news-direct-sources a {
-    border-bottom: 2px solid var(--accent-gold);
-    color: var(--accent-deep);
-    font-weight: 700;
-}
-
-.news-fallback {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-md);
-}
-
-.news-fallback a {
-    border-bottom: 2px solid var(--accent-gold);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-weight: 700;
-}
-
 
 /* ===================================
    CONNECT SECTION - INVITING
@@ -1115,14 +1014,37 @@ section {
         grid-template-columns: 1fr 1fr;
     }
 
-    .news-feed-list {
-        grid-template-columns: 1fr;
-    }
 }
 
 @media (max-width: 768px) {
     h1 { font-size: 3rem; }
     h2 { font-size: 2.5rem; }
+
+    .nav-container {
+        flex-direction: column;
+        gap: 0.6rem;
+        padding: 0.75rem var(--spacing-sm);
+    }
+
+    .nav-logo {
+        font-size: 1.5rem;
+        line-height: 1.2;
+    }
+
+    .nav-menu {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.45rem 0.8rem;
+    }
+
+    .nav-menu a {
+        font-size: 0.875rem;
+    }
+
+    .hero {
+        margin-top: 116px;
+    }
     
     .hero-container {
         grid-template-columns: 1fr;
@@ -1134,12 +1056,8 @@ section {
     }
     
     .hero-title {
-        font-size: 4rem;
-    }
-    
-    .nav-menu {
-        gap: 1rem;
-        font-size: 0.9375rem;
+        font-size: 3.5rem;
+        overflow-wrap: anywhere;
     }
     
     .projects-grid {
@@ -1154,16 +1072,10 @@ section {
         flex-wrap: wrap;
     }
 
-    .news-widget-header {
-        display: block;
+    .reading-list {
+        grid-template-columns: 1fr;
     }
 
-    .news-widget-header span {
-        display: block;
-        margin-top: var(--spacing-xs);
-        white-space: normal;
-    }
-    
     .about-content {
         padding: var(--spacing-md);
     }
@@ -1190,13 +1102,21 @@ section {
 
 @media (max-width: 480px) {
     .nav-menu {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.75rem;
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        gap: 0.4rem 0.75rem;
     }
-    
+
+    .nav-menu li {
+        text-align: center;
+    }
+
+    .hero {
+        margin-top: 142px;
+    }
+
     .hero-title {
-        font-size: 3rem;
+        font-size: 2.75rem;
     }
     
     .hero-tagline {
