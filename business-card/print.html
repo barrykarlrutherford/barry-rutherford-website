@@ -10,8 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet">
   <style>
     :root {
-      --card-width: 3.5in;
-      --card-height: 2in;
+      --card-width: 3.62in;
+      --card-height: 2.12in;
       --front-ink: #2a1810;
       --front-muted: #5a4a3a;
       --front-gold: #d4a574;
@@ -166,9 +166,21 @@
 
     .front-side {
       display: grid;
-      align-content: center;
+      align-content: space-between;
       justify-items: end;
       min-width: 0;
+      padding-top: 0.015in;
+      gap: 0.06in;
+    }
+
+    .front-location {
+      color: var(--front-wine);
+      font-size: 6.6pt;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .front-qr-placeholder {
@@ -185,18 +197,10 @@
       border: 1px solid var(--front-ink);
     }
 
-    .front-qr-placeholder span {
+    .front-qr-placeholder img {
       width: 100%;
       height: 100%;
-      display: grid;
-      place-items: center;
-      border: 1px dashed rgba(42, 24, 16, 0.58);
-      color: var(--front-muted);
-      font-size: 5.8pt;
-      font-weight: 800;
-      line-height: 1.05;
-      text-align: center;
-      text-transform: uppercase;
+      object-fit: contain;
     }
 
     .back-card {
@@ -278,6 +282,10 @@
       gap: 0.045in;
     }
 
+    .malestrum .brand-block {
+      position: static;
+    }
+
     .back-kicker {
       margin: 0 0 0.025in;
       font-size: 5pt;
@@ -355,14 +363,18 @@
 
     .malestrum .back-subtitle {
       color: rgba(51, 51, 76, 0.78);
-      width: calc(100% + 0.12in);
-      max-width: none;
-      margin-right: -0.1in;
-      text-align: right;
+      position: absolute;
+      top: 0.59in;
+      left: 0.54in;
+      text-align: left;
     }
 
     .breakwater .back-subtitle {
       color: rgba(255, 255, 255, 0.84);
+    }
+
+    .malestrum .back-chips {
+      margin-top: 0.18in;
     }
 
     .back-chips {
@@ -480,7 +492,7 @@
 
     @media print {
       @page {
-        size: 3.5in 2in;
+        size: 3.62in 2.12in;
         margin: 0;
       }
 
@@ -546,7 +558,7 @@
 
           <div class="front-contact">
             <div class="front-label">Email</div>
-            <div class="front-value">barrykarlrutherford@gmail.com</div>
+            <div class="front-value">bkr@barryrutherford.com</div>
             <div class="front-label">Phone</div>
             <div class="front-value">(214) 505-0635</div>
             <div class="front-label">Web</div>
@@ -555,8 +567,9 @@
         </section>
 
         <aside class="front-side" aria-label="QR code placeholder">
-          <div class="front-qr-placeholder" aria-label="QR code placeholder">
-            <span>QR<br>Code</span>
+          <div class="front-location">Santa Fe, NM</div>
+          <div class="front-qr-placeholder" aria-label="QR code for Barry Rutherford business card">
+            <img src="barry-business-card-qr.svg" alt="QR code for Barry Rutherford business card">
           </div>
         </aside>
       </main>
@@ -619,6 +632,6 @@
     </section>
   </div>
 
-  <div class="trim-note" aria-hidden="true">3.5in x 2in print artboards: front, then back</div>
+  <div class="trim-note" aria-hidden="true">3.62in x 2.12in print artboards: front, then back</div>
 </body>
 </html>
