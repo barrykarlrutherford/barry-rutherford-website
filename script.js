@@ -31,6 +31,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         '.category-title',
         '.category-intro',
         '.explore-item',
+        '.art-filters',
+        '.art-item',
+        '.essay-card',
+        '.screenplay-card',
         '.reading-list a',
         '.connect-intro',
         '.connect-link',
@@ -66,45 +70,81 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     targets.forEach(el => observer.observe(el));
 })();
 
-// Excerpt preview modal
+// Shared overlay modals (excerpt essays + art lightbox)
 (() => {
-    const triggers = document.querySelectorAll('[data-excerpt-target]');
-    if (!triggers.length) return;
-
-    let activeModal = null;
+    let activeOverlay = null;
     let lastFocused = null;
 
-    const closeModal = () => {
-        if (!activeModal) return;
-        activeModal.hidden = true;
+    const closeOverlay = () => {
+        if (!activeOverlay) return;
+        activeOverlay.hidden = true;
         document.body.classList.remove('excerpt-open');
         if (lastFocused) lastFocused.focus();
-        activeModal = null;
+        activeOverlay = null;
     };
 
-    const openModal = (modal, trigger) => {
+    const openOverlay = (overlay, trigger) => {
         lastFocused = trigger;
-        activeModal = modal;
-        modal.hidden = false;
+        activeOverlay = overlay;
+        overlay.hidden = false;
         document.body.classList.add('excerpt-open');
-        const closeBtn = modal.querySelector('[data-excerpt-close]');
+        const closeBtn = overlay.querySelector('[data-excerpt-close]');
         if (closeBtn) closeBtn.focus();
-        modal.scrollTop = 0;
+        const dialog = overlay.querySelector('.excerpt-modal__dialog');
+        if (dialog) dialog.scrollTop = 0;
     };
 
-    triggers.forEach(trigger => {
+    document.querySelectorAll('[data-excerpt-target]').forEach(trigger => {
         trigger.addEventListener('click', () => {
             const modal = document.getElementById(trigger.getAttribute('data-excerpt-target'));
-            if (modal) openModal(modal, trigger);
+            if (modal) openOverlay(modal, trigger);
         });
     });
 
+    const lightbox = document.getElementById('art-lightbox');
+    if (lightbox) {
+        const lightboxImg = lightbox.querySelector('.lightbox__img');
+        const lightboxCaption = lightbox.querySelector('.lightbox__caption');
+
+        document.querySelectorAll('.art-item__trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const fullSrc = trigger.getAttribute('data-art-full');
+                const caption = trigger.getAttribute('data-art-caption') || '';
+                if (lightboxImg && fullSrc) {
+                    lightboxImg.src = fullSrc;
+                    lightboxImg.alt = caption;
+                }
+                if (lightboxCaption) lightboxCaption.textContent = caption;
+                openOverlay(lightbox, trigger);
+            });
+        });
+    }
+
     document.querySelectorAll('[data-excerpt-close]').forEach(el => {
-        el.addEventListener('click', closeModal);
+        el.addEventListener('click', closeOverlay);
     });
 
     document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && activeModal) closeModal();
+        if (e.key === 'Escape' && activeOverlay) closeOverlay();
+    });
+})();
+
+// Art gallery category filters
+(() => {
+    const filters = document.querySelectorAll('.art-filter');
+    const items = document.querySelectorAll('.art-item');
+    if (!filters.length || !items.length) return;
+
+    filters.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+            filters.forEach(b => b.classList.remove('is-active'));
+            btn.classList.add('is-active');
+            items.forEach(item => {
+                const category = item.getAttribute('data-category');
+                item.classList.toggle('is-hidden', filter !== 'all' && category !== filter);
+            });
+        });
     });
 })();
 

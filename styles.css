@@ -208,7 +208,7 @@ section {
     align-items: center;
     background:
         linear-gradient(180deg, rgba(26, 15, 10, 0.55) 0%, rgba(26, 15, 10, 0.35) 50%, rgba(26, 15, 10, 0.65) 100%),
-        url('images/sunset-sculpture.jpg');
+        url('images/art/sculpture/sunset-sculpture.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -785,6 +785,296 @@ section {
 
 body.excerpt-open {
     overflow: hidden;
+}
+
+/* ===================================
+   ART SECTION
+   =================================== */
+
+.art {
+    background: var(--section-warm);
+    position: relative;
+}
+
+.art-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    justify-content: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.art-filter {
+    padding: 0.45rem 1.1rem;
+    background: transparent;
+    border: 1.5px solid var(--accent-gold);
+    border-radius: 999px;
+    color: var(--accent-deep);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.art-filter:hover,
+.art-filter:focus-visible {
+    border-color: var(--accent-deep);
+    color: var(--accent-deep);
+}
+
+.art-filter.is-active {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: var(--primary-dark);
+}
+
+.art-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.art-item {
+    margin: 0;
+    background: var(--card-bg);
+    box-shadow: 0 4px 20px rgba(26, 15, 10, 0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.art-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(26, 15, 10, 0.14);
+}
+
+.art-item.is-hidden {
+    display: none;
+}
+
+.art-item__trigger {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: block;
+    overflow: hidden;
+}
+
+.art-item__trigger img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.art-item__trigger:hover img,
+.art-item__trigger:focus-visible img {
+    transform: scale(1.05);
+}
+
+.art-item figcaption {
+    padding: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.art-item__title {
+    color: var(--primary-dark);
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.art-item__meta {
+    color: var(--text-light);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.8125rem;
+}
+
+/* Image lightbox */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+}
+
+.lightbox[hidden] {
+    display: none;
+}
+
+.lightbox__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 15, 10, 0.85);
+    backdrop-filter: blur(3px);
+}
+
+.lightbox__dialog {
+    position: relative;
+    max-width: 92vw;
+    max-height: 90vh;
+    animation: excerpt-modal-in 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lightbox__dialog { animation: none; }
+}
+
+.lightbox__figure {
+    margin: 0;
+}
+
+.lightbox__img {
+    display: block;
+    max-width: 92vw;
+    max-height: 80vh;
+    object-fit: contain;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox__caption {
+    margin-top: var(--spacing-xs);
+    color: var(--primary-light);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.lightbox__close {
+    position: absolute;
+    top: -2.75rem;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--primary-light);
+    font-size: 2.25rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.lightbox__close:hover,
+.lightbox__close:focus-visible {
+    color: var(--accent-bright);
+}
+
+/* ===================================
+   ESSAYS SECTION
+   =================================== */
+
+.essays {
+    background: var(--card-bg);
+    position: relative;
+}
+
+.essay-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+    text-align: left;
+}
+
+.essay-card {
+    background: linear-gradient(135deg, var(--section-warm) 0%, var(--section-rich) 100%);
+    border-left: 5px solid var(--accent-gold);
+    padding: var(--spacing-md);
+    box-shadow: 0 4px 20px rgba(26, 15, 10, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+.essay-card__meta {
+    color: var(--text-light);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-xs);
+}
+
+.essay-card__title {
+    color: var(--primary-dark);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.essay-card__excerpt {
+    color: var(--text-medium);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-sm);
+}
+
+.essay-card__more {
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid var(--accent-gold);
+    color: var(--accent-deep);
+    font-family: inherit;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.essay-card__more:hover,
+.essay-card__more:focus-visible {
+    color: var(--accent-bright);
+    border-bottom-color: var(--accent-deep);
+}
+
+.screenplays {
+    margin-top: var(--spacing-lg);
+    text-align: left;
+}
+
+.screenplay-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.screenplay-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-left: 5px solid var(--accent-deep);
+    padding: var(--spacing-md);
+    box-shadow: 0 4px 20px rgba(26, 15, 10, 0.06);
+    display: flex;
+    flex-direction: column;
+}
+
+.screenplay-card__title {
+    color: var(--primary-dark);
+    font-size: 1.375rem;
+    margin-bottom: 0.2rem;
+}
+
+.screenplay-card__meta {
+    color: var(--accent-deep);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-sm);
+}
+
+.screenplay-card__logline {
+    color: var(--text-medium);
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: var(--spacing-sm);
 }
 
 .writing-note {

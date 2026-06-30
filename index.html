@@ -16,7 +16,9 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#writing">Writing</a></li>
+                <li><a href="#art">Art</a></li>
                 <li><a href="#exploring">Exploring</a></li>
+                <li><a href="#essays">Essays</a></li>
                 <li><a href="#connect">Connect</a></li>
             </ul>
         </div>
@@ -122,6 +124,87 @@
                     </article>
                 </div>
                 <p class="writing-note">New essays published regularly on <a href="https://malestrum.com" target="_blank" rel="noopener noreferrer">Malestrum</a>. Longer work in progress here.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Art Section -->
+    <section id="art" class="art">
+        <div class="container">
+            <h2 class="section-title">Art</h2>
+            <p class="section-intro">Photography by Griffin Rutherford alongside Barry's sketches, paintings, welded steel, and sculpture.</p>
+
+            <div class="art-filters" role="group" aria-label="Filter artwork">
+                <button type="button" class="art-filter is-active" data-filter="all">All</button>
+                <button type="button" class="art-filter" data-filter="photography">Photography</button>
+                <button type="button" class="art-filter" data-filter="sketch">Sketches</button>
+                <button type="button" class="art-filter" data-filter="painting">Paintings</button>
+                <button type="button" class="art-filter" data-filter="welding">Welding</button>
+                <button type="button" class="art-filter" data-filter="sculpture">Sculpture</button>
+            </div>
+
+            <div class="art-grid">
+                <!-- Real entry: existing sculpture image -->
+                <figure class="art-item" data-category="sculpture">
+                    <button type="button" class="art-item__trigger" data-art-full="images/art/sculpture/sunset-sculpture.jpg"
+                            data-art-caption="Sunset — Sculpture · Barry Rutherford"
+                            aria-haspopup="dialog" aria-label="View 'Sunset' (sculpture) larger">
+                        <img src="images/art/sculpture/sunset-sculpture.jpg" alt="Welded steel sculpture catching late sun" loading="lazy">
+                    </button>
+                    <figcaption>
+                        <span class="art-item__title">Sunset</span>
+                        <span class="art-item__meta">Sculpture · Barry Rutherford</span>
+                    </figcaption>
+                </figure>
+
+                <!-- PLACEHOLDER entries — swap src/alt/caption/category as real pieces arrive -->
+                <figure class="art-item" data-category="photography">
+                    <button type="button" class="art-item__trigger" data-art-full="images/art/photography/placeholder.jpg"
+                            data-art-caption="Untitled — Photography · Griffin Rutherford"
+                            aria-haspopup="dialog" aria-label="View placeholder photograph larger">
+                        <img src="images/art/photography/placeholder.jpg" alt="Placeholder for a photograph by Griffin Rutherford" loading="lazy">
+                    </button>
+                    <figcaption>
+                        <span class="art-item__title">Untitled</span>
+                        <span class="art-item__meta">Photography · Griffin Rutherford</span>
+                    </figcaption>
+                </figure>
+
+                <figure class="art-item" data-category="sketch">
+                    <button type="button" class="art-item__trigger" data-art-full="images/art/sketch/placeholder.jpg"
+                            data-art-caption="Untitled — Sketch · Barry Rutherford"
+                            aria-haspopup="dialog" aria-label="View placeholder sketch larger">
+                        <img src="images/art/sketch/placeholder.jpg" alt="Placeholder for a sketch by Barry Rutherford" loading="lazy">
+                    </button>
+                    <figcaption>
+                        <span class="art-item__title">Untitled</span>
+                        <span class="art-item__meta">Sketch · Barry Rutherford</span>
+                    </figcaption>
+                </figure>
+
+                <figure class="art-item" data-category="painting">
+                    <button type="button" class="art-item__trigger" data-art-full="images/art/painting/placeholder.jpg"
+                            data-art-caption="Untitled — Painting · Barry Rutherford"
+                            aria-haspopup="dialog" aria-label="View placeholder painting larger">
+                        <img src="images/art/painting/placeholder.jpg" alt="Placeholder for a painting by Barry Rutherford" loading="lazy">
+                    </button>
+                    <figcaption>
+                        <span class="art-item__title">Untitled</span>
+                        <span class="art-item__meta">Painting · Barry Rutherford</span>
+                    </figcaption>
+                </figure>
+
+                <figure class="art-item" data-category="welding">
+                    <button type="button" class="art-item__trigger" data-art-full="images/art/welding/placeholder.jpg"
+                            data-art-caption="Untitled — Welded steel · Barry Rutherford"
+                            aria-haspopup="dialog" aria-label="View placeholder welded work larger">
+                        <img src="images/art/welding/placeholder.jpg" alt="Placeholder for a welded steel work by Barry Rutherford" loading="lazy">
+                    </button>
+                    <figcaption>
+                        <span class="art-item__title">Untitled</span>
+                        <span class="art-item__meta">Welded steel · Barry Rutherford</span>
+                    </figcaption>
+                </figure>
             </div>
         </div>
     </section>
@@ -326,6 +409,52 @@
         </div>
     </section>
 
+    <!-- Essays Section -->
+    <section id="essays" class="essays">
+        <div class="container">
+            <h2 class="section-title">Essays</h2>
+            <p class="section-intro">Short personal writing — life events, the Austin years, friends and family remembered — and a home for screenplays in progress.</p>
+
+            <div class="essay-list">
+                <!-- PLACEHOLDER essays — replace meta/title/excerpt and the matching modal below -->
+                <article class="essay-card">
+                    <p class="essay-card__meta"><time datetime="2026-01-01">2026</time> · Life Events</p>
+                    <h3 class="essay-card__title">Essay title goes here</h3>
+                    <p class="essay-card__excerpt">A one- or two-sentence teaser that draws the reader in and previews what the essay is about.</p>
+                    <button type="button" class="essay-card__more" data-excerpt-target="essay-placeholder-1" aria-haspopup="dialog">Read essay →</button>
+                </article>
+
+                <article class="essay-card">
+                    <p class="essay-card__meta"><time datetime="2026-01-01">2026</time> · Austin Years</p>
+                    <h3 class="essay-card__title">Essay title goes here</h3>
+                    <p class="essay-card__excerpt">A one- or two-sentence teaser that draws the reader in and previews what the essay is about.</p>
+                    <button type="button" class="essay-card__more" data-excerpt-target="essay-placeholder-2" aria-haspopup="dialog">Read essay →</button>
+                </article>
+
+                <article class="essay-card">
+                    <p class="essay-card__meta"><time datetime="2026-01-01">2026</time> · Remembrances</p>
+                    <h3 class="essay-card__title">Essay title goes here</h3>
+                    <p class="essay-card__excerpt">A one- or two-sentence teaser that draws the reader in and previews what the essay is about.</p>
+                    <button type="button" class="essay-card__more" data-excerpt-target="essay-placeholder-3" aria-haspopup="dialog">Read essay →</button>
+                </article>
+            </div>
+
+            <!-- Screenplays subsection -->
+            <div class="screenplays">
+                <h3 class="category-title">Screenplays</h3>
+                <p class="category-intro">Scripts and works for the screen, in progress.</p>
+                <div class="screenplay-list">
+                    <article class="screenplay-card">
+                        <h4 class="screenplay-card__title">Working title</h4>
+                        <p class="screenplay-card__meta">Feature · Draft</p>
+                        <p class="screenplay-card__logline">A one-line logline describing the screenplay's premise.</p>
+                        <button type="button" class="essay-card__more" data-excerpt-target="screenplay-placeholder-1" aria-haspopup="dialog">Read an excerpt →</button>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Connect Section -->
     <section id="connect" class="portrait">
         <div class="container">
@@ -380,6 +509,68 @@
                 <p>Whatever caliber it was, it couldn't penetrate the engine block.</p>
                 <p>That much I still knew how to do.</p>
             </div>
+        </div>
+    </div>
+
+    <!-- Essay modals (PLACEHOLDER bodies — paste full essay text into each) -->
+    <div class="excerpt-modal" id="essay-placeholder-1" role="dialog" aria-modal="true" aria-labelledby="essay-placeholder-1-title" hidden>
+        <div class="excerpt-modal__overlay" data-excerpt-close></div>
+        <div class="excerpt-modal__dialog" role="document">
+            <button type="button" class="excerpt-modal__close" data-excerpt-close aria-label="Close essay">&times;</button>
+            <p class="excerpt-modal__eyebrow">Essay · Life Events</p>
+            <h3 class="excerpt-modal__title" id="essay-placeholder-1-title">Essay title goes here</h3>
+            <div class="excerpt-modal__body">
+                <p>Full essay text goes here. Replace this placeholder with the complete piece — each paragraph in its own <code>&lt;p&gt;</code>.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="excerpt-modal" id="essay-placeholder-2" role="dialog" aria-modal="true" aria-labelledby="essay-placeholder-2-title" hidden>
+        <div class="excerpt-modal__overlay" data-excerpt-close></div>
+        <div class="excerpt-modal__dialog" role="document">
+            <button type="button" class="excerpt-modal__close" data-excerpt-close aria-label="Close essay">&times;</button>
+            <p class="excerpt-modal__eyebrow">Essay · Austin Years</p>
+            <h3 class="excerpt-modal__title" id="essay-placeholder-2-title">Essay title goes here</h3>
+            <div class="excerpt-modal__body">
+                <p>Full essay text goes here. Replace this placeholder with the complete piece.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="excerpt-modal" id="essay-placeholder-3" role="dialog" aria-modal="true" aria-labelledby="essay-placeholder-3-title" hidden>
+        <div class="excerpt-modal__overlay" data-excerpt-close></div>
+        <div class="excerpt-modal__dialog" role="document">
+            <button type="button" class="excerpt-modal__close" data-excerpt-close aria-label="Close essay">&times;</button>
+            <p class="excerpt-modal__eyebrow">Essay · Remembrances</p>
+            <h3 class="excerpt-modal__title" id="essay-placeholder-3-title">Essay title goes here</h3>
+            <div class="excerpt-modal__body">
+                <p>Full essay text goes here. Replace this placeholder with the complete piece.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screenplay modal (PLACEHOLDER) -->
+    <div class="excerpt-modal" id="screenplay-placeholder-1" role="dialog" aria-modal="true" aria-labelledby="screenplay-placeholder-1-title" hidden>
+        <div class="excerpt-modal__overlay" data-excerpt-close></div>
+        <div class="excerpt-modal__dialog" role="document">
+            <button type="button" class="excerpt-modal__close" data-excerpt-close aria-label="Close excerpt">&times;</button>
+            <p class="excerpt-modal__eyebrow">Screenplay — excerpt</p>
+            <h3 class="excerpt-modal__title" id="screenplay-placeholder-1-title">Working title</h3>
+            <div class="excerpt-modal__body">
+                <p>Screenplay excerpt goes here.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image lightbox (shared by the Art gallery) -->
+    <div class="lightbox" id="art-lightbox" role="dialog" aria-modal="true" aria-label="Artwork preview" hidden>
+        <div class="lightbox__overlay" data-excerpt-close></div>
+        <div class="lightbox__dialog" role="document">
+            <button type="button" class="lightbox__close" data-excerpt-close aria-label="Close image">&times;</button>
+            <figure class="lightbox__figure">
+                <img class="lightbox__img" src="" alt="">
+                <figcaption class="lightbox__caption"></figcaption>
+            </figure>
         </div>
     </div>
 
