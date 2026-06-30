@@ -34,7 +34,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         '.art-filters',
         '.art-item',
         '.essay-card',
-        '.screenplay-card',
         '.reading-list a',
         '.connect-intro',
         '.connect-link',

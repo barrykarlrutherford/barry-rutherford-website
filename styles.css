@@ -1000,6 +1000,26 @@ body.excerpt-open {
     margin-bottom: var(--spacing-xs);
 }
 
+.essay-card__tag {
+    display: inline-block;
+    margin-right: 0.4rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.essay-card__tag--essay {
+    background: var(--accent-gold);
+    color: var(--primary-dark);
+}
+
+.essay-card__tag--screenplay {
+    background: var(--accent-deep);
+    color: var(--primary-light);
+}
+
 .essay-card__title {
     color: var(--primary-dark);
     font-size: 1.5rem;
@@ -1031,50 +1051,6 @@ body.excerpt-open {
 .essay-card__more:focus-visible {
     color: var(--accent-bright);
     border-bottom-color: var(--accent-deep);
-}
-
-.screenplays {
-    margin-top: var(--spacing-lg);
-    text-align: left;
-}
-
-.screenplay-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-md);
-}
-
-.screenplay-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-light);
-    border-left: 5px solid var(--accent-deep);
-    padding: var(--spacing-md);
-    box-shadow: 0 4px 20px rgba(26, 15, 10, 0.06);
-    display: flex;
-    flex-direction: column;
-}
-
-.screenplay-card__title {
-    color: var(--primary-dark);
-    font-size: 1.375rem;
-    margin-bottom: 0.2rem;
-}
-
-.screenplay-card__meta {
-    color: var(--accent-deep);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 0.8125rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    margin-bottom: var(--spacing-sm);
-}
-
-.screenplay-card__logline {
-    color: var(--text-medium);
-    font-style: italic;
-    line-height: 1.7;
-    margin-bottom: var(--spacing-sm);
 }
 
 .writing-note {
