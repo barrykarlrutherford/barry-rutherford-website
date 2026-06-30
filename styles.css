@@ -854,16 +854,20 @@ body.excerpt-open {
     display: none;
 }
 
-.art-item__trigger {
+.art-item__trigger,
+.art-item__link {
     padding: 0;
     border: none;
     background: none;
     cursor: pointer;
     display: block;
     overflow: hidden;
+    text-decoration: none;
+    color: inherit;
 }
 
-.art-item__trigger img {
+.art-item__trigger img,
+.art-item__link img {
     display: block;
     width: 100%;
     aspect-ratio: 4 / 3;
@@ -872,8 +876,55 @@ body.excerpt-open {
 }
 
 .art-item__trigger:hover img,
-.art-item__trigger:focus-visible img {
+.art-item__trigger:focus-visible img,
+.art-item__link:hover img,
+.art-item__link:focus-visible img {
     transform: scale(1.05);
+}
+
+.art-item--cta {
+    display: flex;
+    align-items: stretch;
+    background: linear-gradient(135deg, var(--section-warm) 0%, var(--section-rich) 100%);
+    border: 2px dashed var(--accent-gold);
+    box-shadow: none;
+}
+
+.art-item--cta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(26, 15, 10, 0.14);
+}
+
+.art-cta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+    min-height: 100%;
+    padding: var(--spacing-md);
+    text-align: center;
+    text-decoration: none;
+    color: var(--accent-deep);
+}
+
+.art-cta__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.art-cta__meta {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.art-cta:hover .art-cta__title,
+.art-cta:focus-visible .art-cta__title {
+    color: var(--accent-deep);
 }
 
 .art-item figcaption {
@@ -1647,6 +1698,115 @@ img {
     display: block;
     max-width: 100%;
     height: auto;
+}
+
+/* ===================================
+   ART DETAIL / GALLERY PAGES
+   =================================== */
+
+.art-detail-page {
+    background: var(--primary-light);
+}
+
+.art-detail-nav {
+    position: sticky;
+}
+
+.art-detail,
+.art-gallery-page {
+    padding: calc(80px + var(--spacing-md)) 0 var(--spacing-xl);
+}
+
+.art-gallery-page .section-title {
+    text-align: center;
+}
+
+.art-gallery-page .section-intro {
+    text-align: center;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.art-detail__figure {
+    margin: 0 0 var(--spacing-md);
+    text-align: center;
+}
+
+.art-detail__img {
+    display: block;
+    max-width: 100%;
+    max-height: 78vh;
+    margin: 0 auto;
+    box-shadow: 0 16px 48px rgba(26, 15, 10, 0.18);
+}
+
+.art-detail__info {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto var(--spacing-md);
+}
+
+.art-detail__eyebrow {
+    color: var(--text-light);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.8125rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-xs);
+}
+
+.art-detail__title {
+    color: var(--primary-dark);
+    font-size: 2.25rem;
+    margin-bottom: 0.35rem;
+}
+
+.art-detail__date {
+    color: var(--text-medium);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.9375rem;
+}
+
+.art-detail__nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--spacing-sm);
+    max-width: 720px;
+    margin: var(--spacing-md) auto 0;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-light);
+}
+
+.art-detail__nav-link {
+    color: var(--accent-deep);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent-gold);
+    padding-bottom: 2px;
+    text-decoration: none;
+}
+
+.art-detail__nav-link:hover,
+.art-detail__nav-link:focus-visible {
+    color: var(--accent-bright);
+    border-bottom-color: transparent;
+}
+
+.art-detail__nav-link--gallery {
+    justify-self: center;
+}
+
+.art-detail__nav-placeholder {
+    display: block;
+}
+
+.art-detail__nav a:first-child {
+    justify-self: start;
+}
+
+.art-detail__nav a:last-child {
+    justify-self: end;
 }
 
 @media print {

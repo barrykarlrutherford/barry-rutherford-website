@@ -33,6 +33,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         '.explore-item',
         '.art-filters',
         '.art-item',
+        '.art-item--cta',
         '.essay-card',
         '.reading-list a',
         '.connect-intro',

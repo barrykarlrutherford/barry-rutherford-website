@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "node server.mjs"
+    "start": "node server.mjs",
+    "build:photography": "node scripts/build-photography.mjs"
   },
   "engines": {
     "node": ">=20"
