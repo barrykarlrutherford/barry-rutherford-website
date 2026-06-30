@@ -66,6 +66,48 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     targets.forEach(el => observer.observe(el));
 })();
 
+// Excerpt preview modal
+(() => {
+    const triggers = document.querySelectorAll('[data-excerpt-target]');
+    if (!triggers.length) return;
+
+    let activeModal = null;
+    let lastFocused = null;
+
+    const closeModal = () => {
+        if (!activeModal) return;
+        activeModal.hidden = true;
+        document.body.classList.remove('excerpt-open');
+        if (lastFocused) lastFocused.focus();
+        activeModal = null;
+    };
+
+    const openModal = (modal, trigger) => {
+        lastFocused = trigger;
+        activeModal = modal;
+        modal.hidden = false;
+        document.body.classList.add('excerpt-open');
+        const closeBtn = modal.querySelector('[data-excerpt-close]');
+        if (closeBtn) closeBtn.focus();
+        modal.scrollTop = 0;
+    };
+
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const modal = document.getElementById(trigger.getAttribute('data-excerpt-target'));
+            if (modal) openModal(modal, trigger);
+        });
+    });
+
+    document.querySelectorAll('[data-excerpt-close]').forEach(el => {
+        el.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && activeModal) closeModal();
+    });
+})();
+
 // Add active class to navigation based on scroll position
 window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('section[id]');

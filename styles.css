@@ -665,6 +665,128 @@ section {
     font-weight: 600;
 }
 
+.excerpt-trigger {
+    display: inline-block;
+    margin-top: var(--spacing-sm);
+    padding: 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid var(--accent-gold);
+    color: var(--accent-deep);
+    font-family: inherit;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.excerpt-trigger:hover,
+.excerpt-trigger:focus-visible {
+    color: var(--accent-bright);
+    border-bottom-color: var(--accent-deep);
+}
+
+/* Excerpt preview modal */
+.excerpt-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+}
+
+.excerpt-modal[hidden] {
+    display: none;
+}
+
+.excerpt-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 15, 10, 0.7);
+    backdrop-filter: blur(3px);
+}
+
+.excerpt-modal__dialog {
+    position: relative;
+    max-width: 640px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    background: var(--primary-light);
+    border-top: 6px solid var(--accent-gold);
+    box-shadow: 0 24px 60px rgba(26, 15, 10, 0.45);
+    padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md);
+    animation: excerpt-modal-in 0.25s ease;
+}
+
+@keyframes excerpt-modal-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .excerpt-modal__dialog { animation: none; }
+}
+
+.excerpt-modal__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.excerpt-modal__close:hover,
+.excerpt-modal__close:focus-visible {
+    color: var(--accent-deep);
+}
+
+.excerpt-modal__eyebrow {
+    color: var(--text-light);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-xs);
+}
+
+.excerpt-modal__title {
+    color: var(--primary-dark);
+    font-size: 2rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.excerpt-modal__body p {
+    color: var(--text-dark);
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    margin-bottom: var(--spacing-sm);
+}
+
+.excerpt-modal__dedication {
+    border-left: 4px solid var(--accent-gold);
+    padding-left: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.excerpt-modal__dedication p {
+    color: var(--text-medium);
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+body.excerpt-open {
+    overflow: hidden;
+}
+
 .writing-note {
     color: var(--text-medium);
     font-size: 1.125rem;
@@ -1144,7 +1266,9 @@ section {
     
     .hero-title {
         font-size: 3.5rem;
-        overflow-wrap: anywhere;
+        overflow-wrap: break-word;
+        word-break: normal;
+        hyphens: none;
     }
     
     .projects-grid {
