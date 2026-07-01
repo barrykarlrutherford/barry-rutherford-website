@@ -1,8 +1,25 @@
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+
+        if (href === '#essays') {
+            e.preventDefault();
+            const target = document.querySelector('#essays');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            document.dispatchEvent(new CustomEvent('show-coming-soon', {
+                detail: {
+                    trigger: this,
+                    message: 'Essays and screenplays are coming soon.'
+                }
+            }));
+            return;
+        }
+
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) {
             target.scrollIntoView({
                 behavior: 'smooth',
@@ -34,7 +51,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         '.art-filters',
         '.art-item',
         '.art-item--cta',
-        '.essay-card',
+        '.essays-coming-soon',
         '.reading-list a',
         '.connect-intro',
         '.connect-link',
@@ -70,10 +87,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     targets.forEach(el => observer.observe(el));
 })();
 
-// Shared overlay modals (excerpt essays + art lightbox)
+// Shared overlay modals (excerpts, art lightbox, coming soon)
 (() => {
     let activeOverlay = null;
     let lastFocused = null;
+
+    const comingSoonModal = document.getElementById('coming-soon-modal');
+    const comingSoonMessage = document.getElementById('coming-soon-message');
 
     const closeOverlay = () => {
         if (!activeOverlay) return;
@@ -94,10 +114,27 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (dialog) dialog.scrollTop = 0;
     };
 
+    const showComingSoon = (trigger, message) => {
+        if (comingSoonMessage) comingSoonMessage.textContent = message;
+        if (comingSoonModal) openOverlay(comingSoonModal, trigger);
+    };
+
+    document.addEventListener('show-coming-soon', e => {
+        const { trigger, message } = e.detail;
+        showComingSoon(trigger, message);
+    });
+
     document.querySelectorAll('[data-excerpt-target]').forEach(trigger => {
         trigger.addEventListener('click', () => {
             const modal = document.getElementById(trigger.getAttribute('data-excerpt-target'));
             if (modal) openOverlay(modal, trigger);
+        });
+    });
+
+    document.querySelectorAll('[data-coming-soon]').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const label = trigger.getAttribute('data-coming-soon');
+            showComingSoon(trigger, `${label} are coming soon.`);
         });
     });
 
@@ -127,25 +164,32 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && activeOverlay) closeOverlay();
     });
-})();
 
-// Art gallery category filters
-(() => {
+    // Art gallery category filters
     const filters = document.querySelectorAll('.art-filter');
     const items = document.querySelectorAll('.art-item');
-    if (!filters.length || !items.length) return;
+    if (filters.length && items.length) {
+        filters.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
 
-    filters.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const filter = btn.getAttribute('data-filter');
-            filters.forEach(b => b.classList.remove('is-active'));
-            btn.classList.add('is-active');
-            items.forEach(item => {
-                const category = item.getAttribute('data-category');
-                item.classList.toggle('is-hidden', filter !== 'all' && category !== filter);
+                if (filter !== 'all') {
+                    const matching = [...items].filter(item => item.getAttribute('data-category') === filter);
+                    if (!matching.length) {
+                        showComingSoon(btn, `${btn.textContent.trim()} content is coming soon.`);
+                        return;
+                    }
+                }
+
+                filters.forEach(b => b.classList.remove('is-active'));
+                btn.classList.add('is-active');
+                items.forEach(item => {
+                    const category = item.getAttribute('data-category');
+                    item.classList.toggle('is-hidden', filter !== 'all' && category !== filter);
+                });
             });
         });
-    });
+    }
 })();
 
 // Add active class to navigation based on scroll position

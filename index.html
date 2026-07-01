@@ -231,43 +231,6 @@
                         <span class="art-cta__meta">31 photographs →</span>
                     </a>
                 </div>
-
-                <!-- PLACEHOLDER entries — swap src/alt/caption/category as real pieces arrive -->
-                <figure class="art-item" data-category="sketch">
-                    <button type="button" class="art-item__trigger" data-art-full="images/art/sketch/placeholder.jpg"
-                            data-art-caption="Untitled — Sketch · Barry Rutherford"
-                            aria-haspopup="dialog" aria-label="View placeholder sketch larger">
-                        <img src="images/art/sketch/placeholder.jpg" alt="Placeholder for a sketch by Barry Rutherford" loading="lazy">
-                    </button>
-                    <figcaption>
-                        <span class="art-item__title">Untitled</span>
-                        <span class="art-item__meta">Sketch · Barry Rutherford</span>
-                    </figcaption>
-                </figure>
-
-                <figure class="art-item" data-category="painting">
-                    <button type="button" class="art-item__trigger" data-art-full="images/art/painting/placeholder.jpg"
-                            data-art-caption="Untitled — Painting · Barry Rutherford"
-                            aria-haspopup="dialog" aria-label="View placeholder painting larger">
-                        <img src="images/art/painting/placeholder.jpg" alt="Placeholder for a painting by Barry Rutherford" loading="lazy">
-                    </button>
-                    <figcaption>
-                        <span class="art-item__title">Untitled</span>
-                        <span class="art-item__meta">Painting · Barry Rutherford</span>
-                    </figcaption>
-                </figure>
-
-                <figure class="art-item" data-category="welding">
-                    <button type="button" class="art-item__trigger" data-art-full="images/art/welding/placeholder.jpg"
-                            data-art-caption="Untitled — Welded steel · Barry Rutherford"
-                            aria-haspopup="dialog" aria-label="View placeholder welded work larger">
-                        <img src="images/art/welding/placeholder.jpg" alt="Placeholder for a welded steel work by Barry Rutherford" loading="lazy">
-                    </button>
-                    <figcaption>
-                        <span class="art-item__title">Untitled</span>
-                        <span class="art-item__meta">Welded steel · Barry Rutherford</span>
-                    </figcaption>
-                </figure>
             </div>
         </div>
     </section>
@@ -478,35 +441,9 @@
             <h2 class="section-title">Essays</h2>
             <p class="section-intro">Short personal writing and screenplays in progress — life events, the Austin years, friends and family remembered, and works for the screen.</p>
 
-            <div class="essay-list">
-                <!-- PLACEHOLDER posts — set the tag to Essay or Screenplay and replace meta/title/excerpt and the matching modal below -->
-                <article class="essay-card">
-                    <p class="essay-card__meta"><span class="essay-card__tag essay-card__tag--essay">Essay</span> <time datetime="2026-01-01">2026</time> · Life Events</p>
-                    <h3 class="essay-card__title">Essay title goes here</h3>
-                    <p class="essay-card__excerpt">A one- or two-sentence teaser that draws the reader in and previews what the essay is about.</p>
-                    <button type="button" class="essay-card__more" data-excerpt-target="essay-placeholder-1" aria-haspopup="dialog">Read essay →</button>
-                </article>
-
-                <article class="essay-card">
-                    <p class="essay-card__meta"><span class="essay-card__tag essay-card__tag--essay">Essay</span> <time datetime="2026-01-01">2026</time> · Austin Years</p>
-                    <h3 class="essay-card__title">Essay title goes here</h3>
-                    <p class="essay-card__excerpt">A one- or two-sentence teaser that draws the reader in and previews what the essay is about.</p>
-                    <button type="button" class="essay-card__more" data-excerpt-target="essay-placeholder-2" aria-haspopup="dialog">Read essay →</button>
-                </article>
-
-                <article class="essay-card">
-                    <p class="essay-card__meta"><span class="essay-card__tag essay-card__tag--essay">Essay</span> <time datetime="2026-01-01">2026</time> · Remembrances</p>
-                    <h3 class="essay-card__title">Essay title goes here</h3>
-                    <p class="essay-card__excerpt">A one- or two-sentence teaser that draws the reader in and previews what the essay is about.</p>
-                    <button type="button" class="essay-card__more" data-excerpt-target="essay-placeholder-3" aria-haspopup="dialog">Read essay →</button>
-                </article>
-
-                <article class="essay-card">
-                    <p class="essay-card__meta"><span class="essay-card__tag essay-card__tag--screenplay">Screenplay</span> Feature · Draft</p>
-                    <h3 class="essay-card__title">Working title</h3>
-                    <p class="essay-card__excerpt">A one-line logline describing the screenplay's premise.</p>
-                    <button type="button" class="essay-card__more" data-excerpt-target="screenplay-placeholder-1" aria-haspopup="dialog">Read an excerpt →</button>
-                </article>
+            <div class="essays-coming-soon">
+                <p>Essays and screenplays are on the way — life events, the Austin years, remembrances, and works for the screen.</p>
+                <button type="button" class="essay-card__more" data-coming-soon="Essays and screenplays" aria-haspopup="dialog">Coming soon →</button>
             </div>
         </div>
     </section>
@@ -568,52 +505,15 @@
         </div>
     </div>
 
-    <!-- Essay modals (PLACEHOLDER bodies — paste full essay text into each) -->
-    <div class="excerpt-modal" id="essay-placeholder-1" role="dialog" aria-modal="true" aria-labelledby="essay-placeholder-1-title" hidden>
+    <!-- Coming soon modal -->
+    <div class="excerpt-modal" id="coming-soon-modal" role="dialog" aria-modal="true" aria-labelledby="coming-soon-title" hidden>
         <div class="excerpt-modal__overlay" data-excerpt-close></div>
         <div class="excerpt-modal__dialog" role="document">
-            <button type="button" class="excerpt-modal__close" data-excerpt-close aria-label="Close essay">&times;</button>
-            <p class="excerpt-modal__eyebrow">Essay · Life Events</p>
-            <h3 class="excerpt-modal__title" id="essay-placeholder-1-title">Essay title goes here</h3>
+            <button type="button" class="excerpt-modal__close" data-excerpt-close aria-label="Close">&times;</button>
+            <p class="excerpt-modal__eyebrow">Barry Rutherford</p>
+            <h3 class="excerpt-modal__title" id="coming-soon-title">Coming Soon</h3>
             <div class="excerpt-modal__body">
-                <p>Full essay text goes here. Replace this placeholder with the complete piece — each paragraph in its own <code>&lt;p&gt;</code>.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="excerpt-modal" id="essay-placeholder-2" role="dialog" aria-modal="true" aria-labelledby="essay-placeholder-2-title" hidden>
-        <div class="excerpt-modal__overlay" data-excerpt-close></div>
-        <div class="excerpt-modal__dialog" role="document">
-            <button type="button" class="excerpt-modal__close" data-excerpt-close aria-label="Close essay">&times;</button>
-            <p class="excerpt-modal__eyebrow">Essay · Austin Years</p>
-            <h3 class="excerpt-modal__title" id="essay-placeholder-2-title">Essay title goes here</h3>
-            <div class="excerpt-modal__body">
-                <p>Full essay text goes here. Replace this placeholder with the complete piece.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="excerpt-modal" id="essay-placeholder-3" role="dialog" aria-modal="true" aria-labelledby="essay-placeholder-3-title" hidden>
-        <div class="excerpt-modal__overlay" data-excerpt-close></div>
-        <div class="excerpt-modal__dialog" role="document">
-            <button type="button" class="excerpt-modal__close" data-excerpt-close aria-label="Close essay">&times;</button>
-            <p class="excerpt-modal__eyebrow">Essay · Remembrances</p>
-            <h3 class="excerpt-modal__title" id="essay-placeholder-3-title">Essay title goes here</h3>
-            <div class="excerpt-modal__body">
-                <p>Full essay text goes here. Replace this placeholder with the complete piece.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Screenplay modal (PLACEHOLDER) -->
-    <div class="excerpt-modal" id="screenplay-placeholder-1" role="dialog" aria-modal="true" aria-labelledby="screenplay-placeholder-1-title" hidden>
-        <div class="excerpt-modal__overlay" data-excerpt-close></div>
-        <div class="excerpt-modal__dialog" role="document">
-            <button type="button" class="excerpt-modal__close" data-excerpt-close aria-label="Close excerpt">&times;</button>
-            <p class="excerpt-modal__eyebrow">Screenplay — excerpt</p>
-            <h3 class="excerpt-modal__title" id="screenplay-placeholder-1-title">Working title</h3>
-            <div class="excerpt-modal__body">
-                <p>Screenplay excerpt goes here.</p>
+                <p id="coming-soon-message">Content is coming soon.</p>
             </div>
         </div>
     </div>

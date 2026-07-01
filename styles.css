@@ -1104,6 +1104,22 @@ body.excerpt-open {
     border-bottom-color: var(--accent-deep);
 }
 
+.essays-coming-soon {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    padding: var(--spacing-lg);
+    background: linear-gradient(135deg, var(--section-warm) 0%, var(--section-rich) 100%);
+    border-left: 5px solid var(--accent-gold);
+    box-shadow: 0 4px 20px rgba(26, 15, 10, 0.08);
+}
+
+.essays-coming-soon p {
+    color: var(--text-medium);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-sm);
+}
+
 .writing-note {
     color: var(--text-medium);
     font-size: 1.125rem;
