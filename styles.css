@@ -294,7 +294,7 @@ section {
 }
 
 .portrait .section-title {
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-xxl);
     text-align: center;
 }
 
@@ -332,13 +332,13 @@ section {
     font-size: 2rem;
     font-weight: 300;
     color: var(--primary-dark);
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
 }
 
 .portrait-role {
     color: var(--accent-deep);
     font-style: italic;
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-xxl);
 }
 
 .contact-details {
@@ -356,7 +356,7 @@ section {
 .contact-label {
     display: inline-block;
     width: 90px;
-    margin-right: var(--spacing-md);
+    margin-right: var(--spacing-lg);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
