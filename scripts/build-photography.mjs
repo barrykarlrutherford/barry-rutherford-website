@@ -1,10 +1,14 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { join, dirname } from 'node:path';
+import { mkdir, readFile, writeFile, readdir, unlink } from 'node:fs/promises';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const outDir = join(root, 'art', 'photography');
 const PREVIEW_COUNT = 8;
+
+const PHOTO_CREDIT = '© Griffin Rutherford';
+const PHOTO_META = `Photography · ${PHOTO_CREDIT}`;
+const GRIFFIN_SITE = 'https://griffinrutherford.com';
 
 const photos = JSON.parse(
   await readFile(join(root, 'art', 'photography-data.json'), 'utf8')
@@ -30,7 +34,11 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-function photoCard(photo, { preview = false } = {}) {
+function purchaseBlock() {
+  return `<p class="art-detail__purchase">Interested in a print? <a href="${GRIFFIN_SITE}">Contact Griffin</a> for purchasing inquiries.</p>`;
+}
+
+function photoCard(photo) {
   const thumb = `images/art/photography/thumbs/${photo.file}`;
   const href = `art/photography/${photo.slug}.html`;
   const title = escapeHtml(photo.title);
@@ -42,7 +50,7 @@ function photoCard(photo, { preview = false } = {}) {
                     </a>
                     <figcaption>
                         <span class="art-item__title">${title}</span>
-                        <span class="art-item__meta">Photography · Griffin Rutherford</span>
+                        <span class="art-item__meta">${PHOTO_META}</span>
                     </figcaption>
                 </figure>`;
 }
@@ -63,7 +71,7 @@ function detailPage(photo, index) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${escapeHtml(photo.title)} | Griffin Rutherford Photography</title>
+    <title>${escapeHtml(photo.title)} | ${PHOTO_CREDIT}</title>
     <meta name="description" content="${escapeHtml(photo.alt)}">
     <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -84,9 +92,10 @@ function detailPage(photo, index) {
                 <img class="art-detail__img" src="../../images/art/photography/${photo.file}" alt="${escapeHtml(photo.alt)}">
             </figure>
             <div class="art-detail__info">
-                <p class="art-detail__eyebrow">Photography · Griffin Rutherford</p>
+                <p class="art-detail__eyebrow">${PHOTO_META}</p>
                 <h1 class="art-detail__title">${escapeHtml(photo.title)}</h1>
                 ${dateLine}
+                ${purchaseBlock()}
             </div>
             <nav class="art-detail__nav" aria-label="Photo navigation">
                 ${navLink(prev, '← Previous')}
@@ -98,7 +107,7 @@ function detailPage(photo, index) {
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 Barry Rutherford. Photo by <a href="https://griffinrutherford.com" target="_blank" rel="noopener noreferrer">Griffin Rutherford</a>.</p>
+            <p>${PHOTO_CREDIT}. <a href="${GRIFFIN_SITE}" target="_blank" rel="noopener noreferrer">Griffin Rutherford</a>. <a href="${GRIFFIN_SITE}">Contact Griffin</a> for purchasing inquiries.</p>
         </div>
     </footer>
 </body>
@@ -117,7 +126,7 @@ function galleryIndex() {
                     </a>
                     <figcaption>
                         <span class="art-item__title">${title}</span>
-                        <span class="art-item__meta">Photography · Griffin Rutherford</span>
+                        <span class="art-item__meta">${PHOTO_META}</span>
                     </figcaption>
                 </figure>`;
   }).join('\n\n');
@@ -127,7 +136,7 @@ function galleryIndex() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photography | Griffin Rutherford</title>
+    <title>Photography | ${PHOTO_CREDIT}</title>
     <meta name="description" content="Photography by Griffin Rutherford — landscapes, sunsets, and Santa Fe light.">
     <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -144,7 +153,7 @@ function galleryIndex() {
     <main class="art-gallery-page">
         <div class="container">
             <h1 class="section-title">Photography</h1>
-            <p class="section-intro">Landscapes, light, and daily vistas by Griffin Rutherford.</p>
+            <p class="section-intro">Landscapes, light, and daily vistas by Griffin Rutherford. All photographs ${PHOTO_CREDIT}. <a href="${GRIFFIN_SITE}">Contact Griffin</a> for purchasing inquiries.</p>
             <div class="art-grid">
 ${cards}
             </div>
@@ -153,7 +162,7 @@ ${cards}
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 Barry Rutherford. Photos by <a href="https://griffinrutherford.com" target="_blank" rel="noopener noreferrer">Griffin Rutherford</a>.</p>
+            <p>${PHOTO_CREDIT}. <a href="${GRIFFIN_SITE}" target="_blank" rel="noopener noreferrer">Griffin Rutherford</a>. <a href="${GRIFFIN_SITE}">Contact Griffin</a> for purchasing inquiries.</p>
         </div>
     </footer>
 </body>
@@ -175,6 +184,18 @@ ${previewCards}
 }
 
 await mkdir(outDir, { recursive: true });
+
+const activeSlugs = new Set(photos.map(p => p.slug));
+activeSlugs.add('index');
+
+for (const file of await readdir(outDir)) {
+  if (!file.endsWith('.html')) continue;
+  const slug = file.replace(/\.html$/, '');
+  if (!activeSlugs.has(slug)) {
+    await unlink(join(outDir, file));
+    console.log(`Removed orphaned page: ${file}`);
+  }
+}
 
 for (let i = 0; i < photos.length; i++) {
   const page = detailPage(photos[i], i);
