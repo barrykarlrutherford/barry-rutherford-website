@@ -73,6 +73,12 @@ body {
         transform: none;
         transition: none;
     }
+
+    .hero__parallax-img {
+        top: 0;
+        height: 100%;
+        transform: none !important;
+    }
 }
 
 /* ===================================
@@ -206,13 +212,37 @@ section {
     min-height: calc(100vh - 80px);
     display: flex;
     align-items: center;
-    background:
-        linear-gradient(180deg, rgba(26, 15, 10, 0.55) 0%, rgba(26, 15, 10, 0.35) 50%, rgba(26, 15, 10, 0.65) 100%),
-        url('images/art/sculpture/sunset-sculpture.jpg');
-    background-size: cover;
-    background-position: center;
     position: relative;
     overflow: hidden;
+    isolation: isolate;
+}
+
+.hero__parallax {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.hero__parallax-img {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -18%;
+    height: 136%;
+    background: url('images/art/sculpture/sunset-sculpture.jpg') center center / cover no-repeat;
+    will-change: transform;
+}
+
+.hero__parallax-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(26, 15, 10, 0.55) 0%,
+        rgba(26, 15, 10, 0.35) 50%,
+        rgba(26, 15, 10, 0.65) 100%
+    );
 }
 
 .hero-container {
@@ -221,6 +251,7 @@ section {
     padding: 0 var(--spacing-xl);
     position: relative;
     z-index: 1;
+    width: 100%;
 }
 
 .hero-content {

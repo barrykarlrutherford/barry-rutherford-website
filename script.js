@@ -1,3 +1,33 @@
+// Hero background parallax
+(() => {
+    const hero = document.querySelector('.hero');
+    const parallaxImg = document.querySelector('.hero__parallax-img');
+    if (!hero || !parallaxImg) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    const factor = 0.42;
+    let ticking = false;
+
+    const update = () => {
+        const rect = hero.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+            parallaxImg.style.transform = `translate3d(0, ${-rect.top * factor}px, 0)`;
+        }
+        ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    update();
+})();
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
