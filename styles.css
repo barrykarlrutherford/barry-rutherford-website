@@ -293,6 +293,16 @@ section {
     background: linear-gradient(180deg, var(--section-warm) 0%, var(--primary-light) 100%);
 }
 
+.portrait .section-title {
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+}
+
+.portrait .section-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .portrait-content {
     display: flex;
     align-items: center;
@@ -322,13 +332,13 @@ section {
     font-size: 2rem;
     font-weight: 300;
     color: var(--primary-dark);
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
 }
 
 .portrait-role {
     color: var(--accent-deep);
     font-style: italic;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
 }
 
 .contact-details {
@@ -338,7 +348,7 @@ section {
 }
 
 .contact-details li {
-    padding: var(--spacing-xs) 0;
+    padding: var(--spacing-sm) 0;
     border-top: 1px solid rgba(212, 165, 116, 0.3);
     color: var(--text-medium);
 }
@@ -346,6 +356,7 @@ section {
 .contact-label {
     display: inline-block;
     width: 90px;
+    margin-right: var(--spacing-md);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
