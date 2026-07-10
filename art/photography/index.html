@@ -21,8 +21,15 @@
         <div class="container">
             <h1 class="section-title">Photography</h1>
             <p class="section-intro">Landscapes, light, and daily vistas by Griffin Rutherford. All photographs © Griffin Rutherford. <a href="mailto:griffinkrutherford@gmail.com">griffinkrutherford@gmail.com</a> for purchasing inquiries.</p>
-            <div class="art-grid">
-                <figure class="art-item">
+
+            <div class="art-search">
+                <label class="art-search__label" for="photo-search-input">Search photography</label>
+                <input type="search" id="photo-search-input" class="art-search__input" placeholder="Try “sunset,” “mountains,” “snow,” “sculpture”…" autocomplete="off">
+                <p class="art-search__meta" id="photo-search-meta" aria-live="polite"></p>
+            </div>
+
+            <div class="art-grid" id="photo-grid">
+                <figure class="art-item" data-search="rainbow over desert hills a vertical rainbow descends into golden-lit desert hills and juniper trees beneath heavy storm clouds.">
                     <a class="art-item__link" href="rainbow-over-desert-hills.html">
                         <img src="../../images/art/photography/thumbs/20260708_200103.jpg" alt="A vertical rainbow descends into golden-lit desert hills and juniper trees beneath heavy storm clouds." loading="lazy">
                     </a>
@@ -32,7 +39,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="sculpture against golden ridges a silhouetted iron sculpture with hooked and spiral forms stands over sunlit green mountains, distant peaks, and valley rooftops at golden hour.">
                     <a class="art-item__link" href="sculpture-against-golden-ridges.html">
                         <img src="../../images/art/photography/thumbs/20260708_195650.jpg" alt="A silhouetted iron sculpture with hooked and spiral forms stands over sunlit green mountains, distant peaks, and valley rooftops at golden hour." loading="lazy">
                     </a>
@@ -42,7 +49,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="alpine lake and rugged peaks a calm alpine lake reflects steep rocky cliffs and forested slopes beneath a clear blue sky in a high mountain wilderness.">
                     <a class="art-item__link" href="alpine-lake-rugged-peaks.html">
                         <img src="../../images/art/photography/thumbs/20260629_182750.jpg" alt="A calm alpine lake reflects steep rocky cliffs and forested slopes beneath a clear blue sky in a high mountain wilderness." loading="lazy">
                     </a>
@@ -52,7 +59,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="canyon lake overlook a high-angle view of a dark mountain lake nestled between steep rocky cliffs, framed by a dead tree branch in the foreground.">
                     <a class="art-item__link" href="canyon-lake-overlook.html">
                         <img src="../../images/art/photography/thumbs/20260629_180130.jpg" alt="A high-angle view of a dark mountain lake nestled between steep rocky cliffs, framed by a dead tree branch in the foreground." loading="lazy">
                     </a>
@@ -62,7 +69,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="purple columbine blooms light purple and white columbine flowers with yellow centers bloom among green foliage on rocky ground in bright sunlight.">
                     <a class="art-item__link" href="purple-columbine-blooms.html">
                         <img src="../../images/art/photography/thumbs/20260629_174045.jpg" alt="Light purple and white columbine flowers with yellow centers bloom among green foliage on rocky ground in bright sunlight." loading="lazy">
                     </a>
@@ -72,7 +79,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="moonlit patio vista a moonlit backyard patio with flagstone, gravel, and evergreens overlooking distant mountains and scattered valley lights under a starry night sky.">
                     <a class="art-item__link" href="moonlit-patio-vista.html">
                         <img src="../../images/art/photography/thumbs/20260601_223136.jpg" alt="A moonlit backyard patio with flagstone, gravel, and evergreens overlooking distant mountains and scattered valley lights under a starry night sky." loading="lazy">
                     </a>
@@ -82,7 +89,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="sculpture silhouette at dusk a dark abstract metal sculpture silhouetted against rolling green hills and a pink-purple cloudy sky at sunset.">
                     <a class="art-item__link" href="sculpture-silhouette-at-dusk.html">
                         <img src="../../images/art/photography/thumbs/20260512_200059(1).jpg" alt="A dark abstract metal sculpture silhouetted against rolling green hills and a pink-purple cloudy sky at sunset." loading="lazy">
                     </a>
@@ -92,7 +99,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="cycling mountain overlook bicycle handlebars frame a golden-hour view of layered brown mountains and a shrub-covered valley below.">
                     <a class="art-item__link" href="cycling-mountain-overlook.html">
                         <img src="../../images/art/photography/thumbs/20260423_193621.jpg" alt="Bicycle handlebars frame a golden-hour view of layered brown mountains and a shrub-covered valley below." loading="lazy">
                     </a>
@@ -102,7 +109,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="fiery hillside sunset a vivid orange-red sunset with streaky clouds above silhouetted adobe-style homes on a hillside and distant mountains.">
                     <a class="art-item__link" href="fiery-hillside-sunset.html">
                         <img src="../../images/art/photography/thumbs/20260422_195536.jpg" alt="A vivid orange-red sunset with streaky clouds above silhouetted adobe-style homes on a hillside and distant mountains." loading="lazy">
                     </a>
@@ -112,7 +119,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="rusted sculpture in mist a weathered rusted metal sculpture with red accents stands before fog-shrouded green mountains and pine trees.">
                     <a class="art-item__link" href="rusted-sculpture-in-mist.html">
                         <img src="../../images/art/photography/thumbs/20260413_161614.jpg" alt="A weathered rusted metal sculpture with red accents stands before fog-shrouded green mountains and pine trees." loading="lazy">
                     </a>
@@ -122,7 +129,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="striped sunset over valley horizontal bands of fiery orange and red clouds glow above dark mountain silhouettes with scattered lights in the valley below.">
                     <a class="art-item__link" href="striped-sunset-over-valley.html">
                         <img src="../../images/art/photography/thumbs/20260402_194101.jpg" alt="Horizontal bands of fiery orange and red clouds glow above dark mountain silhouettes with scattered lights in the valley below." loading="lazy">
                     </a>
@@ -132,7 +139,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="purple orange mountain dusk a gradient sky of purple, pink, and orange illuminates layered mountain ridges above dark foreground shrubs.">
                     <a class="art-item__link" href="purple-orange-mountain-dusk.html">
                         <img src="../../images/art/photography/thumbs/20260323_192628.jpg" alt="A gradient sky of purple, pink, and orange illuminates layered mountain ridges above dark foreground shrubs." loading="lazy">
                     </a>
@@ -142,7 +149,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="golden forested ridges rolling forest-covered mountain ridges catch warm golden sunset light while the foreground canopy glows deep green.">
                     <a class="art-item__link" href="golden-forested-ridges.html">
                         <img src="../../images/art/photography/thumbs/20260318_191318.jpg" alt="Rolling forest-covered mountain ridges catch warm golden sunset light while the foreground canopy glows deep green." loading="lazy">
                     </a>
@@ -152,7 +159,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="layered sunset bands horizontal stripes of purple, pink, and orange light the sky above dark silhouetted mountain ridges and a foreground tree.">
                     <a class="art-item__link" href="layered-sunset-bands.html">
                         <img src="../../images/art/photography/thumbs/20260315_193200.jpg" alt="Horizontal stripes of purple, pink, and orange light the sky above dark silhouetted mountain ridges and a foreground tree." loading="lazy">
                     </a>
@@ -162,7 +169,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="twilight valley lights a pink and orange sunset sky hangs over dark mountain silhouettes with clusters of distant valley lights below.">
                     <a class="art-item__link" href="twilight-valley-lights.html">
                         <img src="../../images/art/photography/thumbs/20260315_193122.jpg" alt="A pink and orange sunset sky hangs over dark mountain silhouettes with clusters of distant valley lights below." loading="lazy">
                     </a>
@@ -172,7 +179,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="gradient ridge twilight a lavender-to-orange twilight sky glows above layered purple mountain ridges with a silhouetted juniper in the foreground.">
                     <a class="art-item__link" href="gradient-ridge-twilight.html">
                         <img src="../../images/art/photography/thumbs/20260315_192143.jpg" alt="A lavender-to-orange twilight sky glows above layered purple mountain ridges with a silhouetted juniper in the foreground." loading="lazy">
                     </a>
@@ -182,7 +189,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="snowy peak panorama a wide view from a rocky overlook across snow-capped mountain peaks, forested valleys, and a clear blue winter sky.">
                     <a class="art-item__link" href="snowy-peak-panorama.html">
                         <img src="../../images/art/photography/thumbs/20260130_115817.jpg" alt="A wide view from a rocky overlook across snow-capped mountain peaks, forested valleys, and a clear blue winter sky." loading="lazy">
                     </a>
@@ -192,7 +199,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="rocky summit winter view jagged snow-dusted rocks and evergreens frame a panoramic vista of distant snow-covered mountain ranges under a bright blue sky.">
                     <a class="art-item__link" href="rocky-summit-winter-view.html">
                         <img src="../../images/art/photography/thumbs/20260130_115807.jpg" alt="Jagged snow-dusted rocks and evergreens frame a panoramic vista of distant snow-covered mountain ranges under a bright blue sky." loading="lazy">
                     </a>
@@ -202,7 +209,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="fiery snowy sunset intense orange and magenta clouds blaze above snow-laden evergreen trees and distant dark mountain ridges at sunset.">
                     <a class="art-item__link" href="fiery-snowy-sunset.html">
                         <img src="../../images/art/photography/thumbs/20260109_171112.jpg" alt="Intense orange and magenta clouds blaze above snow-laden evergreen trees and distant dark mountain ridges at sunset." loading="lazy">
                     </a>
@@ -212,7 +219,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="winter sun lens flare a low winter sun with a golden lens flare shines through billowing orange clouds above snow-covered trees and hills.">
                     <a class="art-item__link" href="winter-sun-lens-flare.html">
                         <img src="../../images/art/photography/thumbs/20260109_170733.jpg" alt="A low winter sun with a golden lens flare shines through billowing orange clouds above snow-covered trees and hills." loading="lazy">
                     </a>
@@ -222,7 +229,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="balcony mountain sunset a white wooden balcony railing frames a fiery orange and red sunset sky above dark silhouetted mountain ridges.">
                     <a class="art-item__link" href="balcony-mountain-sunset.html">
                         <img src="../../images/art/photography/thumbs/20251215_065416.jpg" alt="A white wooden balcony railing frames a fiery orange and red sunset sky above dark silhouetted mountain ridges." loading="lazy">
                     </a>
@@ -232,7 +239,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="full moon over peaks a bright full moon rises above dark snow-patched mountain peaks under a warm peach twilight sky, framed by evergreen branches.">
                     <a class="art-item__link" href="full-moon-over-peaks.html">
                         <img src="../../images/art/photography/thumbs/20251204_165509.jpg" alt="A bright full moon rises above dark snow-patched mountain peaks under a warm peach twilight sky, framed by evergreen branches." loading="lazy">
                     </a>
@@ -242,7 +249,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="window sunrise over snow golden sunrise light glows through snow-laden pine trees and across a snowy mountain ridge, viewed from behind a window frame.">
                     <a class="art-item__link" href="window-sunrise-over-snow.html">
                         <img src="../../images/art/photography/thumbs/20251204_071951.jpg" alt="Golden sunrise light glows through snow-laden pine trees and across a snowy mountain ridge, viewed from behind a window frame." loading="lazy">
                     </a>
@@ -252,7 +259,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="mesa valley sunset a broad flat-topped mesa glows pink against a warm sunset sky above a hazy valley with scattered lights and dark forested hills.">
                     <a class="art-item__link" href="mesa-valley-sunset.html">
                         <img src="../../images/art/photography/thumbs/IMG_20251130_115429_046.jpg" alt="A broad flat-topped mesa glows pink against a warm sunset sky above a hazy valley with scattered lights and dark forested hills." loading="lazy">
                     </a>
@@ -262,7 +269,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="golden hour forest ridge rolling pine-covered mountains bathed in warm golden sunlight stretch under a clear blue sky with bare branches in the foreground.">
                     <a class="art-item__link" href="golden-hour-forest-ridge.html">
                         <img src="../../images/art/photography/thumbs/20251129_164218.jpg" alt="Rolling pine-covered mountains bathed in warm golden sunlight stretch under a clear blue sky with bare branches in the foreground." loading="lazy">
                     </a>
@@ -272,7 +279,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="snowy tower landscape fresh snow blankets evergreen trees and rolling hills beneath a gray overcast sky, with a tall communication tower on the right.">
                     <a class="art-item__link" href="snowy-tower-landscape.html">
                         <img src="../../images/art/photography/thumbs/20251123_075932.jpg" alt="Fresh snow blankets evergreen trees and rolling hills beneath a gray overcast sky, with a tall communication tower on the right." loading="lazy">
                     </a>
@@ -282,7 +289,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="dove and coastal rainbow a white dove stands on a weathered concrete ledge before a calm ocean, distant mountains, and a vivid rainbow in stormy clouds.">
                     <a class="art-item__link" href="dove-and-coastal-rainbow.html">
                         <img src="../../images/art/photography/thumbs/20251022_064145.jpg" alt="A white dove stands on a weathered concrete ledge before a calm ocean, distant mountains, and a vivid rainbow in stormy clouds." loading="lazy">
                     </a>
@@ -292,7 +299,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="golden cloud mountain sunset heavy clouds glow golden yellow above layered purple mountain ridges and dark foreground trees at sunset.">
                     <a class="art-item__link" href="golden-cloud-mountain-sunset.html">
                         <img src="../../images/art/photography/thumbs/20250929_183754.jpg" alt="Heavy clouds glow golden yellow above layered purple mountain ridges and dark foreground trees at sunset." loading="lazy">
                     </a>
@@ -302,7 +309,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="aspen forest trail a winding dirt path leads through a dense aspen grove with white-barked trunks and bright yellow-green undergrowth.">
                     <a class="art-item__link" href="aspen-forest-trail.html">
                         <img src="../../images/art/photography/thumbs/20250928_112935.jpg" alt="A winding dirt path leads through a dense aspen grove with white-barked trunks and bright yellow-green undergrowth." loading="lazy">
                     </a>
@@ -312,7 +319,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="rippled sky sculpture a silhouetted abstract metal sculpture rises against a wavy orange and yellow sunset sky with distant hills below.">
                     <a class="art-item__link" href="rippled-sky-sculpture.html">
                         <img src="../../images/art/photography/thumbs/20250919_064330.jpg" alt="A silhouetted abstract metal sculpture rises against a wavy orange and yellow sunset sky with distant hills below." loading="lazy">
                     </a>
@@ -322,7 +329,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="orange purple mountain glow a vivid orange and purple sunset sky illuminates layered mountain ridges above dark green foreground shrubs.">
                     <a class="art-item__link" href="orange-purple-mountain-glow.html">
                         <img src="../../images/art/photography/thumbs/20250731_200753.jpg" alt="A vivid orange and purple sunset sky illuminates layered mountain ridges above dark green foreground shrubs." loading="lazy">
                     </a>
@@ -332,7 +339,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="sun rays through clouds crepuscular rays stream through dark storm clouds as the sun sets behind silhouetted mountain ridges in golden light.">
                     <a class="art-item__link" href="sun-rays-through-clouds.html">
                         <img src="../../images/art/photography/thumbs/20250731_200316.jpg" alt="Crepuscular rays stream through dark storm clouds as the sun sets behind silhouetted mountain ridges in golden light." loading="lazy">
                     </a>
@@ -342,7 +349,7 @@
                     </figcaption>
                 </figure>
 
-                <figure class="art-item">
+                <figure class="art-item" data-search="double rainbow at dusk a bright double rainbow arches over layered mountains beneath storm clouds lit by warm orange sunset light.">
                     <a class="art-item__link" href="double-rainbow-at-dusk.html">
                         <img src="../../images/art/photography/thumbs/IMG_20250719_204824_280.jpg" alt="A bright double rainbow arches over layered mountains beneath storm clouds lit by warm orange sunset light." loading="lazy">
                     </a>
@@ -352,6 +359,10 @@
                     </figcaption>
                 </figure>
             </div>
+
+            <p class="art-empty" id="photo-empty" hidden>No photographs match your search. Try a different word, like “rainbow” or “forest.”</p>
+
+            <nav class="art-pagination" id="photo-pagination" aria-label="Photography pagination"></nav>
         </div>
     </main>
 
@@ -360,5 +371,7 @@
             <p>© Griffin Rutherford. <a href="https://griffinrutherford.com" target="_blank" rel="noopener noreferrer">Griffin Rutherford</a>. <a href="mailto:griffinkrutherford@gmail.com">griffinkrutherford@gmail.com</a> for purchasing inquiries.</p>
         </div>
     </footer>
+
+    <script src="gallery.js" defer></script>
 </body>
 </html>

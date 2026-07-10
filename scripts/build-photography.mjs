@@ -121,7 +121,8 @@ function galleryIndex() {
     const thumb = `../../images/art/photography/thumbs/${photo.file}`;
     const title = escapeHtml(photo.title);
     const alt = escapeHtml(photo.alt);
-    return `                <figure class="art-item">
+    const search = escapeHtml(`${photo.title} ${photo.alt}`.toLowerCase());
+    return `                <figure class="art-item" data-search="${search}">
                     <a class="art-item__link" href="${photo.slug}.html">
                         <img src="${thumb}" alt="${alt}" loading="lazy">
                     </a>
@@ -155,9 +156,20 @@ function galleryIndex() {
         <div class="container">
             <h1 class="section-title">Photography</h1>
             <p class="section-intro">Landscapes, light, and daily vistas by Griffin Rutherford. All photographs ${PHOTO_CREDIT}. <a href="mailto:${GRIFFIN_EMAIL}">${GRIFFIN_EMAIL}</a> for purchasing inquiries.</p>
-            <div class="art-grid">
+
+            <div class="art-search">
+                <label class="art-search__label" for="photo-search-input">Search photography</label>
+                <input type="search" id="photo-search-input" class="art-search__input" placeholder="Try “sunset,” “mountains,” “snow,” “sculpture”…" autocomplete="off">
+                <p class="art-search__meta" id="photo-search-meta" aria-live="polite"></p>
+            </div>
+
+            <div class="art-grid" id="photo-grid">
 ${cards}
             </div>
+
+            <p class="art-empty" id="photo-empty" hidden>No photographs match your search. Try a different word, like “rainbow” or “forest.”</p>
+
+            <nav class="art-pagination" id="photo-pagination" aria-label="Photography pagination"></nav>
         </div>
     </main>
 
@@ -166,6 +178,8 @@ ${cards}
             <p>${PHOTO_CREDIT}. <a href="${GRIFFIN_SITE}" target="_blank" rel="noopener noreferrer">Griffin Rutherford</a>. <a href="mailto:${GRIFFIN_EMAIL}">${GRIFFIN_EMAIL}</a> for purchasing inquiries.</p>
         </div>
     </footer>
+
+    <script src="gallery.js" defer></script>
 </body>
 </html>
 `;
