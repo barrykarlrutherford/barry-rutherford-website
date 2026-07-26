@@ -1737,7 +1737,7 @@ body.excerpt-open {
     }
 
     .nav-logo {
-        font-size: clamp(1.2rem, 6vw, 1.5rem);
+        font-size: clamp(1.1rem, 5.5vw, 1.4rem);
         line-height: 1.2;
     }
 
@@ -1781,6 +1781,8 @@ body.excerpt-open {
     
     .hero-container {
         grid-template-columns: 1fr;
+        padding-right: var(--spacing-sm);
+        padding-left: var(--spacing-sm);
         text-align: center;
     }
     
@@ -1790,7 +1792,7 @@ body.excerpt-open {
     }
     
     .hero-title {
-        font-size: clamp(2rem, 10.5vw, 3.5rem);
+        font-size: clamp(1.85rem, 9vw, 3rem);
         white-space: nowrap;
         hyphens: none;
     }
