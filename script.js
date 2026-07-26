@@ -36,6 +36,7 @@
 
     const closeMenu = () => {
         menu.classList.remove('is-open');
+        document.body.classList.remove('nav-open');
         toggle.setAttribute('aria-expanded', 'false');
         toggle.setAttribute('aria-label', 'Open navigation');
     };
@@ -43,6 +44,7 @@
     toggle.addEventListener('click', () => {
         const isOpen = toggle.getAttribute('aria-expanded') === 'true';
         menu.classList.toggle('is-open', !isOpen);
+        document.body.classList.toggle('nav-open', !isOpen);
         toggle.setAttribute('aria-expanded', String(!isOpen));
         toggle.setAttribute('aria-label', isOpen ? 'Open navigation' : 'Close navigation');
     });
@@ -65,6 +67,16 @@
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) closeMenu();
     });
+})();
+
+// Give the fixed header a more defined state after leaving the top.
+(() => {
+    const nav = document.querySelector('.nav');
+    if (!nav) return;
+
+    const updateNav = () => nav.classList.toggle('is-scrolled', window.scrollY > 24);
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
 })();
 
 // Smooth scrolling for navigation links
@@ -277,8 +289,10 @@ window.addEventListener('scroll', () => {
     
     navLinks.forEach(link => {
         link.classList.remove('active');
+        link.removeAttribute('aria-current');
         if (link.getAttribute('href') === `#${current}`) {
             link.classList.add('active');
+            link.setAttribute('aria-current', 'location');
         }
     });
 });
