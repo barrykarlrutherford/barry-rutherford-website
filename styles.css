@@ -1778,6 +1778,10 @@ body.excerpt-open {
         margin-top: 69px;
         min-height: calc(100vh - 69px);
     }
+
+    .hero__parallax-img {
+        background-position: 22% center;
+    }
     
     .hero-container {
         grid-template-columns: 1fr;
