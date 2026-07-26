@@ -1780,7 +1780,16 @@ body.excerpt-open {
     }
 
     .hero__parallax-img {
-        background-position: 22% center;
+        background-position: 28% center;
+    }
+
+    .hero__parallax-overlay {
+        background: linear-gradient(
+            180deg,
+            rgba(26, 15, 10, 0.68) 0%,
+            rgba(26, 15, 10, 0.52) 50%,
+            rgba(26, 15, 10, 0.74) 100%
+        );
     }
     
     .hero-container {
