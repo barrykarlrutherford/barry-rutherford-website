@@ -1774,6 +1774,20 @@ body.excerpt-open {
         font-size: 0.875rem;
     }
 
+    .art-detail-nav .nav-menu {
+        display: flex;
+        position: static;
+        width: auto;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+    }
+
+    .art-detail-nav .nav-menu li:not(:first-child) {
+        display: none;
+    }
+
     .hero {
         margin-top: 69px;
         min-height: calc(100vh - 69px);

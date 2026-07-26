@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const outDir = join(root, 'art', 'photography');
 const PREVIEW_COUNT = 8;
+const SITE_URL = 'https://barryrutherford.com';
 
 const PHOTO_CREDIT = '© Griffin Rutherford';
 const PHOTO_META = `Photography · ${PHOTO_CREDIT}`;
@@ -14,6 +15,47 @@ const GRIFFIN_SITE = 'https://griffinrutherford.com';
 const photos = JSON.parse(
   await readFile(join(root, 'art', 'photography-data.json'), 'utf8')
 );
+
+function jpegDimensions(buffer) {
+  if (buffer[0] !== 0xff || buffer[1] !== 0xd8) return null;
+  let offset = 2;
+  const startOfFrame = new Set([
+    0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7,
+    0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf
+  ]);
+
+  while (offset + 8 < buffer.length) {
+    if (buffer[offset] !== 0xff) {
+      offset++;
+      continue;
+    }
+    const marker = buffer[offset + 1];
+    if (startOfFrame.has(marker)) {
+      return {
+        height: buffer.readUInt16BE(offset + 5),
+        width: buffer.readUInt16BE(offset + 7)
+      };
+    }
+    if (marker === 0xd8 || marker === 0xd9) {
+      offset += 2;
+      continue;
+    }
+    const segmentLength = buffer.readUInt16BE(offset + 2);
+    if (segmentLength < 2) break;
+    offset += segmentLength + 2;
+  }
+
+  return null;
+}
+
+for (const photo of photos) {
+  const [fullBuffer, thumbBuffer] = await Promise.all([
+    readFile(join(root, 'images', 'art', 'photography', photo.file)),
+    readFile(join(root, 'images', 'art', 'photography', 'thumbs', photo.file))
+  ]);
+  photo.fullDimensions = jpegDimensions(fullBuffer);
+  photo.thumbDimensions = jpegDimensions(thumbBuffer);
+}
 
 function formatDate(file) {
   const match = file.match(/^(\d{4})(\d{2})(\d{2})/);
@@ -27,12 +69,22 @@ function formatDate(file) {
   });
 }
 
+function isoDate(file) {
+  const match = file.match(/^(\d{4})(\d{2})(\d{2})/);
+  if (!match) return null;
+  return `${match[1]}-${match[2]}-${match[3]}`;
+}
+
 function escapeHtml(str) {
   return str
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+function jsonLd(value) {
+  return JSON.stringify(value).replace(/</g, '\\u003c');
 }
 
 function purchaseBlock() {
@@ -44,10 +96,13 @@ function photoCard(photo) {
   const href = `art/photography/${photo.slug}.html`;
   const title = escapeHtml(photo.title);
   const alt = escapeHtml(photo.alt);
+  const dimensions = photo.thumbDimensions
+    ? ` width="${photo.thumbDimensions.width}" height="${photo.thumbDimensions.height}"`
+    : '';
 
   return `                <figure class="art-item" data-category="photography">
                     <a class="art-item__link" href="${href}">
-                        <img src="${thumb}" alt="${alt}" loading="lazy">
+                        <img src="${thumb}" alt="${alt}"${dimensions} loading="lazy" decoding="async">
                     </a>
                     <figcaption>
                         <span class="art-item__title">${title}</span>
@@ -60,7 +115,34 @@ function detailPage(photo, index) {
   const prev = photos[index + 1];
   const next = photos[index - 1];
   const date = formatDate(photo.file);
+  const created = isoDate(photo.file);
   const dateLine = date ? `<p class="art-detail__date">${date}</p>` : '';
+  const canonical = `${SITE_URL}/art/photography/${photo.slug}.html`;
+  const image = `${SITE_URL}/images/art/photography/${encodeURIComponent(photo.file)}`;
+  const title = `${photo.title} Photograph | Griffin Rutherford`;
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'ImageObject',
+    name: photo.title,
+    description: photo.alt,
+    contentUrl: image,
+    url: canonical,
+    creator: {
+      '@type': 'Person',
+      name: 'Griffin Rutherford',
+      url: GRIFFIN_SITE
+    },
+    copyrightHolder: {
+      '@type': 'Person',
+      name: 'Griffin Rutherford',
+      url: GRIFFIN_SITE
+    },
+    creditText: PHOTO_CREDIT,
+    ...(created ? { dateCreated: created } : {})
+  };
+  const dimensions = photo.fullDimensions
+    ? ` width="${photo.fullDimensions.width}" height="${photo.fullDimensions.height}"`
+    : '';
 
   const navLink = (target, label) => {
     if (!target) return `<span class="art-detail__nav-placeholder"></span>`;
@@ -72,8 +154,20 @@ function detailPage(photo, index) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${escapeHtml(photo.title)} | ${PHOTO_CREDIT}</title>
+    <title>${escapeHtml(title)}</title>
     <meta name="description" content="${escapeHtml(photo.alt)}">
+    <link rel="canonical" href="${canonical}">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="${escapeHtml(title)}">
+    <meta property="og:description" content="${escapeHtml(photo.alt)}">
+    <meta property="og:url" content="${canonical}">
+    <meta property="og:image" content="${image}">
+    <meta property="og:image:alt" content="${escapeHtml(photo.alt)}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${escapeHtml(title)}">
+    <meta name="twitter:description" content="${escapeHtml(photo.alt)}">
+    <meta name="twitter:image" content="${image}">
+    <script type="application/ld+json">${jsonLd(structuredData)}</script>
     <link rel="stylesheet" href="../../styles.css">
 </head>
 <body class="art-detail-page">
@@ -90,7 +184,7 @@ function detailPage(photo, index) {
     <main class="art-detail">
         <div class="container">
             <figure class="art-detail__figure">
-                <img class="art-detail__img" src="../../images/art/photography/${photo.file}" alt="${escapeHtml(photo.alt)}">
+                <img class="art-detail__img" src="../../images/art/photography/${photo.file}" alt="${escapeHtml(photo.alt)}"${dimensions} decoding="async">
             </figure>
             <div class="art-detail__info">
                 <p class="art-detail__eyebrow">${PHOTO_META}</p>
@@ -122,9 +216,12 @@ function galleryIndex() {
     const title = escapeHtml(photo.title);
     const alt = escapeHtml(photo.alt);
     const search = escapeHtml(`${photo.title} ${photo.alt}`.toLowerCase());
+    const dimensions = photo.thumbDimensions
+      ? ` width="${photo.thumbDimensions.width}" height="${photo.thumbDimensions.height}"`
+      : '';
     return `                <figure class="art-item" data-search="${search}">
                     <a class="art-item__link" href="${photo.slug}.html">
-                        <img src="${thumb}" alt="${alt}" loading="lazy">
+                        <img src="${thumb}" alt="${alt}"${dimensions} loading="lazy" decoding="async">
                     </a>
                     <figcaption>
                         <span class="art-item__title">${title}</span>
@@ -133,13 +230,45 @@ function galleryIndex() {
                 </figure>`;
   }).join('\n\n');
 
+  const canonical = `${SITE_URL}/art/photography/`;
+  const title = 'Landscape Photography | Griffin Rutherford';
+  const description = 'Landscape photography by Griffin Rutherford featuring sunsets, mountains, forests, weather, and the light of Santa Fe and the American West.';
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Photography by Griffin Rutherford',
+    description,
+    url: canonical,
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: photos.length,
+      itemListElement: photos.map((photo, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `${SITE_URL}/art/photography/${photo.slug}.html`,
+        name: photo.title
+      }))
+    }
+  };
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photography | ${PHOTO_CREDIT}</title>
-    <meta name="description" content="Photography by Griffin Rutherford — landscapes, sunsets, and Santa Fe light.">
+    <title>${title}</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${canonical}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="${title}">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${canonical}">
+    <meta property="og:image" content="${SITE_URL}/images/art/photography/20260708_200103.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${title}">
+    <meta name="twitter:description" content="${description}">
+    <meta name="twitter:image" content="${SITE_URL}/images/art/photography/20260708_200103.jpg">
+    <script type="application/ld+json">${jsonLd(structuredData)}</script>
     <link rel="stylesheet" href="../../styles.css">
 </head>
 <body class="art-detail-page">
@@ -220,6 +349,17 @@ for (let i = 0; i < photos.length; i++) {
 await writeFile(join(outDir, 'index.html'), galleryIndex());
 
 const previewPath = join(root, 'art', 'photography-preview.html');
-await writeFile(previewPath, previewBlock());
+const preview = previewBlock();
+await writeFile(previewPath, preview);
 
-console.log(`Generated ${photos.length} photo pages, gallery index, and preview block.`);
+const homePath = join(root, 'index.html');
+const home = await readFile(homePath, 'utf8');
+const previewStart = home.indexOf('                <!-- Photography preview');
+const sculptureStart = home.indexOf('                <figure class="art-item" data-category="sculpture">', previewStart);
+if (previewStart === -1 || sculptureStart === -1) {
+  throw new Error('Could not locate the photography preview markers in index.html');
+}
+const updatedHome = `${home.slice(0, previewStart)}${preview}\n\n${home.slice(sculptureStart)}`;
+await writeFile(homePath, updatedHome);
+
+console.log(`Generated ${photos.length} photo pages, gallery index, and homepage preview.`);
