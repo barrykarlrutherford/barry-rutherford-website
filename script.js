@@ -84,21 +84,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
 
-        if (href === '#essays') {
-            e.preventDefault();
-            const target = document.querySelector('#essays');
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            document.dispatchEvent(new CustomEvent('show-coming-soon', {
-                detail: {
-                    trigger: this,
-                    message: 'Essays and screenplays are coming soon.'
-                }
-            }));
-            return;
-        }
-
         e.preventDefault();
         const target = document.querySelector(href);
         if (target) {
