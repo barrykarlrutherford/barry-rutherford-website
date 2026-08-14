@@ -117,7 +117,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         '.art-filters',
         '.art-item',
         '.art-item--cta',
-        '.essays-coming-soon',
+        '.essays-feature',
         '.reading-list a',
         '.connect-intro',
         '.connect-link',
@@ -153,13 +153,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     targets.forEach(el => observer.observe(el));
 })();
 
-// Shared overlay modals (excerpts, art lightbox, coming soon)
+// Shared overlay modals (excerpts and art lightbox)
 (() => {
     let activeOverlay = null;
     let lastFocused = null;
-
-    const comingSoonModal = document.getElementById('coming-soon-modal');
-    const comingSoonMessage = document.getElementById('coming-soon-message');
 
     const closeOverlay = () => {
         if (!activeOverlay) return;
@@ -180,16 +177,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (dialog) dialog.scrollTop = 0;
     };
 
-    const showComingSoon = (trigger, message) => {
-        if (comingSoonMessage) comingSoonMessage.textContent = message;
-        if (comingSoonModal) openOverlay(comingSoonModal, trigger);
-    };
-
-    document.addEventListener('show-coming-soon', e => {
-        const { trigger, message } = e.detail;
-        showComingSoon(trigger, message);
-    });
-
     document.querySelectorAll('[data-excerpt-target]').forEach(trigger => {
         trigger.addEventListener('click', () => {
             const modal = document.getElementById(trigger.getAttribute('data-excerpt-target'));
@@ -197,23 +184,22 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 
-    document.querySelectorAll('[data-coming-soon]').forEach(trigger => {
-        trigger.addEventListener('click', () => {
-            const label = trigger.getAttribute('data-coming-soon');
-            showComingSoon(trigger, `${label} are coming soon.`);
-        });
-    });
-
     const lightbox = document.getElementById('art-lightbox');
     if (lightbox) {
-        const lightboxImg = lightbox.querySelector('.lightbox__img');
+        const lightboxFigure = lightbox.querySelector('.lightbox__figure');
         const lightboxCaption = lightbox.querySelector('.lightbox__caption');
 
         document.querySelectorAll('.art-item__trigger').forEach(trigger => {
             trigger.addEventListener('click', () => {
                 const fullSrc = trigger.getAttribute('data-art-full');
                 const caption = trigger.getAttribute('data-art-caption') || '';
-                if (lightboxImg && fullSrc) {
+                if (lightboxFigure && fullSrc) {
+                    let lightboxImg = lightboxFigure.querySelector('.lightbox__img');
+                    if (!lightboxImg) {
+                        lightboxImg = document.createElement('img');
+                        lightboxImg.className = 'lightbox__img';
+                        lightboxFigure.insertBefore(lightboxImg, lightboxCaption);
+                    }
                     lightboxImg.src = fullSrc;
                     lightboxImg.alt = caption;
                 }
@@ -242,7 +228,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 if (filter !== 'all') {
                     const matching = [...items].filter(item => item.getAttribute('data-category') === filter);
                     if (!matching.length) {
-                        showComingSoon(btn, `${btn.textContent.trim()} content is coming soon.`);
                         return;
                     }
                 }

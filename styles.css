@@ -1311,7 +1311,7 @@ body.excerpt-open {
     border-bottom-color: var(--accent-deep);
 }
 
-.essays-coming-soon {
+.essays-feature {
     max-width: 640px;
     margin: 0 auto;
     text-align: center;
@@ -1321,7 +1321,7 @@ body.excerpt-open {
     box-shadow: 0 4px 20px rgba(26, 15, 10, 0.08);
 }
 
-.essays-coming-soon p {
+.essays-feature p {
     color: var(--text-medium);
     line-height: 1.7;
     margin-bottom: var(--spacing-sm);
@@ -1763,7 +1763,7 @@ body.excerpt-open {
 }
 
 .writing-project,
-.essays-coming-soon,
+.essays-feature,
 .explore-item,
 .reading-list a {
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
