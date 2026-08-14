@@ -58,6 +58,23 @@ function publicUrl(value) {
   }
 }
 
+function normalizeExcerpt(value) {
+  const text = String(value || '').trim();
+  if (!text) return '';
+
+  let excerpt = text;
+  for (let length = 1; length <= Math.floor(text.length / 2); length += 1) {
+    if (text.length % length === 0 && text === text.slice(0, length).repeat(text.length / length)) {
+      excerpt = text.slice(0, length).trim();
+      break;
+    }
+  }
+
+  if (excerpt.length <= 240) return excerpt;
+  const shortened = excerpt.slice(0, 240).replace(/\s+\S*$/, '').trim();
+  return `${shortened || excerpt.slice(0, 240)}…`;
+}
+
 function normalizeBeehiivPost(post) {
   const publishDate = Number(post.publish_date || post.displayed_date || 0);
   const url = publicUrl(post.web_url);
@@ -66,7 +83,7 @@ function normalizeBeehiivPost(post) {
   return {
     id: String(post.id || ''),
     title: String(post.title),
-    excerpt: String(post.subtitle || post.meta_default_description || post.preview_text || ''),
+    excerpt: normalizeExcerpt(post.subtitle || post.meta_default_description || post.preview_text),
     url,
     thumbnailUrl: publicUrl(post.thumbnail_url),
     authors: Array.isArray(post.authors) ? post.authors.map(String) : [],
