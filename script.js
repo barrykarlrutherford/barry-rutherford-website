@@ -69,6 +69,79 @@
     });
 })();
 
+// Replace the static latest-writing fallback with public post metadata from Beehiiv.
+(() => {
+    const list = document.querySelector('[data-latest-writing]');
+    if (!list) return;
+
+    const dateFormatter = new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    });
+
+    const createPostCard = post => {
+        const card = document.createElement('article');
+        card.className = 'essay-card';
+
+        if (post.thumbnailUrl) {
+            const imageLink = document.createElement('a');
+            imageLink.className = 'essay-card__image-link';
+            imageLink.href = post.url;
+
+            const image = document.createElement('img');
+            image.className = 'essay-card__image';
+            image.src = post.thumbnailUrl;
+            image.alt = '';
+            image.loading = 'lazy';
+            image.decoding = 'async';
+            imageLink.append(image);
+            card.append(imageLink);
+        }
+
+        const meta = document.createElement('p');
+        meta.className = 'essay-card__meta';
+        meta.textContent = dateFormatter.format(new Date(post.publishedAt));
+        card.append(meta);
+
+        const title = document.createElement('h3');
+        title.className = 'essay-card__title';
+        const titleLink = document.createElement('a');
+        titleLink.href = post.url;
+        titleLink.textContent = post.title;
+        title.append(titleLink);
+        card.append(title);
+
+        if (post.excerpt) {
+            const excerpt = document.createElement('p');
+            excerpt.className = 'essay-card__excerpt';
+            excerpt.textContent = post.excerpt;
+            card.append(excerpt);
+        }
+
+        const readLink = document.createElement('a');
+        readLink.className = 'essay-card__more';
+        readLink.href = post.url;
+        readLink.textContent = 'Read on Writing →';
+        card.append(readLink);
+
+        return card;
+    };
+
+    fetch('/api/latest-writing', { headers: { Accept: 'application/json' } })
+        .then(response => {
+            if (!response.ok) throw new Error(`Latest writing returned ${response.status}`);
+            return response.json();
+        })
+        .then(payload => {
+            if (!Array.isArray(payload.data) || !payload.data.length) return;
+            list.replaceChildren(...payload.data.map(createPostCard));
+        })
+        .catch(() => {
+            // Keep the server-rendered American Endgame card as the fallback.
+        });
+})();
+
 // Give the fixed header a more defined state after leaving the top.
 (() => {
     const nav = document.querySelector('.nav');
@@ -117,7 +190,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         '.art-filters',
         '.art-item',
         '.art-item--cta',
-        '.essays-feature',
+        '.essay-card',
         '.reading-list a',
         '.connect-intro',
         '.connect-link',

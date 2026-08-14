@@ -4,7 +4,8 @@
     "build": "npm run build:photography && npm run build:seo",
     "build:photography": "node scripts/build-photography.mjs",
     "build:seo": "node scripts/build-sitemap.mjs",
-    "check:seo": "node scripts/check-seo.mjs"
+    "check:seo": "node scripts/check-seo.mjs",
+    "check:beehiiv": "node scripts/check-beehiiv-config.mjs"
   },
   "engines": {
     "node": ">=20"

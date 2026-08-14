@@ -6,6 +6,14 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 8080);
+const beehiivApiKey = process.env.BEEHIIV_API_KEY;
+const beehiivPublicationId = process.env.BEEHIIV_PUBLICATION_ID;
+const beehiivCacheTtlMs = 15 * 60 * 1000;
+const beehiivCache = {
+  posts: null,
+  expiresAt: 0,
+  request: null
+};
 
 const mimeTypes = {
   '.css': 'text/css; charset=UTF-8',
@@ -41,11 +49,122 @@ function headersFor(filePath, contentLength) {
   };
 }
 
+function publicUrl(value) {
+  try {
+    const url = new URL(value);
+    return ['http:', 'https:'].includes(url.protocol) ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+
+function normalizeBeehiivPost(post) {
+  const publishDate = Number(post.publish_date || post.displayed_date || 0);
+  const url = publicUrl(post.web_url);
+  if (!post.title || !url || !publishDate || publishDate * 1000 > Date.now()) return null;
+
+  return {
+    id: String(post.id || ''),
+    title: String(post.title),
+    excerpt: String(post.subtitle || post.meta_default_description || post.preview_text || ''),
+    url,
+    thumbnailUrl: publicUrl(post.thumbnail_url),
+    authors: Array.isArray(post.authors) ? post.authors.map(String) : [],
+    publishedAt: new Date(publishDate * 1000).toISOString()
+  };
+}
+
+async function requestLatestWriting() {
+  const endpoint = new URL(
+    `https://api.beehiiv.com/v2/publications/${encodeURIComponent(beehiivPublicationId)}/posts`
+  );
+  endpoint.search = new URLSearchParams({
+    status: 'confirmed',
+    hidden_from_feed: 'false',
+    limit: '10',
+    order_by: 'publish_date',
+    direction: 'desc'
+  });
+
+  const apiResponse = await fetch(endpoint, {
+    headers: { Authorization: `Bearer ${beehiivApiKey}` },
+    signal: AbortSignal.timeout(8000)
+  });
+
+  if (!apiResponse.ok) {
+    throw new Error(`Beehiiv returned ${apiResponse.status}`);
+  }
+
+  const payload = await apiResponse.json();
+  return (Array.isArray(payload.data) ? payload.data : [])
+    .filter(post => ['web', 'both'].includes(post.platform))
+    .map(normalizeBeehiivPost)
+    .filter(Boolean)
+    .slice(0, 3);
+}
+
+async function latestWriting() {
+  if (beehiivCache.posts && beehiivCache.expiresAt > Date.now()) {
+    return beehiivCache.posts;
+  }
+
+  if (!beehiivCache.request) {
+    beehiivCache.request = requestLatestWriting()
+      .then(posts => {
+        beehiivCache.posts = posts;
+        beehiivCache.expiresAt = Date.now() + beehiivCacheTtlMs;
+        return posts;
+      })
+      .finally(() => {
+        beehiivCache.request = null;
+      });
+  }
+
+  try {
+    return await beehiivCache.request;
+  } catch (error) {
+    if (beehiivCache.posts) {
+      beehiivCache.expiresAt = Date.now() + 5 * 60 * 1000;
+      return beehiivCache.posts;
+    }
+    throw error;
+  }
+}
+
+function sendJson(response, status, payload) {
+  const body = JSON.stringify(payload);
+  response.writeHead(status, {
+    'Cache-Control': status === 200 ? 'public, max-age=300, stale-while-revalidate=86400' : 'no-store',
+    'Content-Length': Buffer.byteLength(body),
+    'Content-Type': 'application/json; charset=UTF-8',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'X-Content-Type-Options': 'nosniff'
+  });
+  response.end(body);
+}
+
 const server = createServer(async (request, response) => {
   try {
     if (!['GET', 'HEAD'].includes(request.method || '')) {
       response.writeHead(405, { Allow: 'GET, HEAD' });
       response.end();
+      return;
+    }
+
+    const requestUrl = new URL(request.url || '/', 'http://localhost');
+    if (requestUrl.pathname === '/api/latest-writing') {
+      if (!beehiivApiKey || !beehiivPublicationId) {
+        sendJson(response, 503, { error: 'Latest writing is not configured.' });
+        return;
+      }
+
+      try {
+        const posts = await latestWriting();
+        sendJson(response, 200, { data: posts });
+      } catch (error) {
+        console.error('Unable to load latest writing from Beehiiv:', error.message);
+        sendJson(response, 502, { error: 'Latest writing is temporarily unavailable.' });
+      }
       return;
     }
 
