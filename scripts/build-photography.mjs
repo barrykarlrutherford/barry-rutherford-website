@@ -92,8 +92,8 @@ function purchaseBlock() {
 }
 
 function photoCard(photo) {
-  const thumb = `images/art/photography/thumbs/${photo.file}`;
-  const href = `art/photography/${photo.slug}.html`;
+  const thumb = `../images/art/photography/thumbs/${photo.file}`;
+  const href = `photography/${photo.slug}.html`;
   const title = escapeHtml(photo.title);
   const alt = escapeHtml(photo.alt);
   const dimensions = photo.thumbDimensions
@@ -320,7 +320,7 @@ function previewBlock() {
 ${previewCards}
 
                 <div class="art-item art-item--cta" data-category="photography">
-                    <a class="art-cta" href="art/photography/index.html">
+                    <a class="art-cta" href="photography/index.html">
                         <span class="art-cta__title">View all photography</span>
                         <span class="art-cta__meta">${photos.length} photographs →</span>
                     </a>
@@ -352,14 +352,14 @@ const previewPath = join(root, 'art', 'photography-preview.html');
 const preview = previewBlock();
 await writeFile(previewPath, preview);
 
-const homePath = join(root, 'index.html');
-const home = await readFile(homePath, 'utf8');
-const previewStart = home.indexOf('                <!-- Photography preview');
-const sculptureStart = home.indexOf('                <figure class="art-item" data-category="sculpture">', previewStart);
+const hubPath = join(root, 'art', 'index.html');
+const hub = await readFile(hubPath, 'utf8');
+const previewStart = hub.indexOf('                <!-- Photography preview');
+const sculptureStart = hub.indexOf('                <figure class="art-item" data-category="sculpture">', previewStart);
 if (previewStart === -1 || sculptureStart === -1) {
-  throw new Error('Could not locate the photography preview markers in index.html');
+  throw new Error('Could not locate the photography preview markers in art/index.html');
 }
-const updatedHome = `${home.slice(0, previewStart)}${preview}\n\n${home.slice(sculptureStart)}`;
-await writeFile(homePath, updatedHome);
+const updatedHub = `${hub.slice(0, previewStart)}${preview}\n\n${hub.slice(sculptureStart)}`;
+await writeFile(hubPath, updatedHub);
 
-console.log(`Generated ${photos.length} photo pages, gallery index, and homepage preview.`);
+console.log(`Generated ${photos.length} photo pages, gallery index, and art hub preview.`);
