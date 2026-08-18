@@ -1,0 +1,302 @@
+<!--
+  Barry Rutherford header for Beehiiv
+
+  Paste this entire file into Beehiiv's Header Embed field.
+  Disable Beehiiv's built-in publication header/navigation first to avoid
+  displaying two headers.
+-->
+
+<style>
+  :root {
+    --br-cream: #faf6f0;
+    --br-dark: #1a0f0a;
+    --br-text: #5a4a3a;
+    --br-gold: #d4a574;
+    --br-border: #e8dfd4;
+  }
+
+  body {
+    padding-top: 85px !important;
+  }
+
+  .br-header,
+  .br-header * {
+    box-sizing: border-box;
+  }
+
+  .br-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 2147483000;
+    width: 100%;
+    background: rgba(250, 246, 240, 0.96);
+    border-bottom: 1px solid var(--br-border);
+    box-shadow: 0 4px 20px rgba(26, 15, 10, 0.04);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .br-header.is-scrolled {
+    background: rgba(250, 246, 240, 0.985);
+    box-shadow: 0 8px 30px rgba(26, 15, 10, 0.1);
+  }
+
+  .br-header__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    min-height: 84px;
+    margin: 0 auto;
+    padding: 1.25rem 2rem;
+  }
+
+  .br-header__logo {
+    color: var(--br-dark) !important;
+    font-family: Garamond, "Cormorant Garamond", Georgia, serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    text-decoration: none !important;
+    white-space: nowrap;
+    transition: color 0.25s ease;
+  }
+
+  .br-header__logo:hover {
+    color: var(--br-gold) !important;
+  }
+
+  .br-header__menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .br-header__menu a {
+    display: block;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    color: var(--br-text) !important;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    text-decoration: none !important;
+    transition: color 0.25s ease, border-color 0.25s ease;
+  }
+
+  .br-header__menu a:hover,
+  .br-header__menu a[aria-current="page"] {
+    color: var(--br-gold) !important;
+    border-bottom-color: var(--br-gold);
+  }
+
+  .br-header__toggle {
+    display: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0.65rem;
+    border: 1px solid var(--br-border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--br-dark);
+    cursor: pointer;
+  }
+
+  .br-header__toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin: 0.27rem 0;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+
+  .br-header__toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .br-header__toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .br-header__toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  @media (max-width: 768px) {
+    body {
+      padding-top: 69px !important;
+    }
+
+    .br-header__inner {
+      min-height: 68px;
+      padding: 0.75rem 1rem;
+    }
+
+    .br-header__logo {
+      font-size: clamp(1.1rem, 5.5vw, 1.4rem);
+    }
+
+    .br-header__toggle {
+      display: block;
+      flex: 0 0 auto;
+    }
+
+    .br-header__menu {
+      position: absolute;
+      top: 100%;
+      right: 1rem;
+      left: 1rem;
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.25rem;
+      padding: 0.75rem;
+      border: 1px solid var(--br-border);
+      border-radius: 12px;
+      background: rgba(250, 246, 240, 0.99);
+      box-shadow: 0 12px 24px rgba(26, 15, 10, 0.14);
+    }
+
+    .br-header__menu.is-open {
+      display: grid;
+    }
+
+    .br-header__menu li {
+      text-align: center;
+    }
+
+    .br-header__menu a {
+      padding: 0.65rem 0.4rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .br-header *,
+    .br-header *::before,
+    .br-header *::after {
+      scroll-behavior: auto !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    function installBarryHeader() {
+      if (document.querySelector(".br-header")) return;
+
+      document.body.insertAdjacentHTML(
+        "afterbegin",
+        `
+          <header class="br-header">
+            <nav class="br-header__inner" aria-label="Primary navigation">
+              <a class="br-header__logo" href="https://barryrutherford.com/">
+                Barry Rutherford
+              </a>
+
+              <button
+                class="br-header__toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="br-primary-navigation"
+                aria-label="Open navigation"
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+
+              <ul class="br-header__menu" id="br-primary-navigation">
+                <li>
+                  <a href="https://barryrutherford.com/#about">About</a>
+                </li>
+                <li>
+                  <a href="https://barryrutherford.com/#essays">Essays</a>
+                </li>
+                <li>
+                  <a href="https://barryrutherford.com/#writing">My Books</a>
+                </li>
+                <li>
+                  <a href="https://barryrutherford.com/#projects">Projects</a>
+                </li>
+                <li>
+                  <a href="https://barryrutherford.com/#art">Art</a>
+                </li>
+                <li>
+                  <a href="https://barryrutherford.com/exploring/">Exploring</a>
+                </li>
+                <li>
+                  <a href="https://writing.barryrutherford.com/" aria-current="page">
+                    Writing
+                  </a>
+                </li>
+                <li>
+                  <a href="https://barryrutherford.com/#connect">Connect</a>
+                </li>
+              </ul>
+            </nav>
+          </header>
+        `
+      );
+
+      const header = document.querySelector(".br-header");
+      const toggle = header.querySelector(".br-header__toggle");
+      const menu = header.querySelector(".br-header__menu");
+
+      function closeMenu() {
+        menu.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open navigation");
+      }
+
+      toggle.addEventListener("click", () => {
+        const opening = toggle.getAttribute("aria-expanded") !== "true";
+        menu.classList.toggle("is-open", opening);
+        toggle.setAttribute("aria-expanded", String(opening));
+        toggle.setAttribute(
+          "aria-label",
+          opening ? "Close navigation" : "Open navigation"
+        );
+      });
+
+      menu.addEventListener("click", closeMenu);
+
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest(".br-header__inner")) closeMenu();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeMenu();
+          toggle.focus();
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 768) closeMenu();
+      });
+
+      function updateHeader() {
+        header.classList.toggle("is-scrolled", window.scrollY > 24);
+      }
+
+      window.addEventListener("scroll", updateHeader, { passive: true });
+      updateHeader();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", installBarryHeader);
+    } else {
+      installBarryHeader();
+    }
+  })();
+</script>
