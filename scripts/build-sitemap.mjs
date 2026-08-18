@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const siteUrl = 'https://barryrutherford.com';
 const excludedDirectories = new Set(['.git', 'business-card', 'node_modules']);
-const excludedFiles = new Set(['art/photography-preview.html']);
+const excludedFiles = new Set(['art/photography-preview.html', 'beehiiv-header-embed.html']);
 
 async function htmlFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
