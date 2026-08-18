@@ -2,11 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://barryrutherford.com/</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>2026-08-18</lastmod>
   </url>
   <url>
     <loc>https://barryrutherford.com/about/</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>2026-08-18</lastmod>
+  </url>
+  <url>
+    <loc>https://barryrutherford.com/art/</loc>
+    <lastmod>2026-08-18</lastmod>
   </url>
   <url>
     <loc>https://barryrutherford.com/art/photography/</loc>
@@ -155,5 +159,9 @@
   <url>
     <loc>https://barryrutherford.com/art/sculpture/orbital-study.html</loc>
     <lastmod>2026-07-26</lastmod>
+  </url>
+  <url>
+    <loc>https://barryrutherford.com/exploring/</loc>
+    <lastmod>2026-08-18</lastmod>
   </url>
 </urlset>
