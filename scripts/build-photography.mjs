@@ -9,7 +9,7 @@ const SITE_URL = 'https://barryrutherford.com';
 
 const PHOTO_CREDIT = '© Griffin Rutherford';
 const PHOTO_META = `Photography · ${PHOTO_CREDIT}`;
-const GRIFFIN_EMAIL = 'griffinkrutherford@gmail.com';
+const INQUIRY_EMAIL = 'bkr@barryrutherford.com';
 const GRIFFIN_SITE = 'https://griffinrutherford.com';
 
 const photos = JSON.parse(
@@ -88,7 +88,7 @@ function jsonLd(value) {
 }
 
 function purchaseBlock() {
-  return `<p class="art-detail__purchase">Interested in a print? <a href="mailto:${GRIFFIN_EMAIL}">${GRIFFIN_EMAIL}</a> for purchasing inquiries.</p>`;
+  return `<p class="art-detail__purchase">Interested in a print? <a href="mailto:${INQUIRY_EMAIL}">${INQUIRY_EMAIL}</a> for purchasing inquiries.</p>`;
 }
 
 function photoCard(photo) {
@@ -202,7 +202,7 @@ function detailPage(photo, index) {
 
     <footer class="footer">
         <div class="container">
-            <p>${PHOTO_CREDIT}. <a href="${GRIFFIN_SITE}" target="_blank" rel="noopener noreferrer">Griffin Rutherford</a>. <a href="mailto:${GRIFFIN_EMAIL}">${GRIFFIN_EMAIL}</a> for purchasing inquiries.</p>
+            <p>${PHOTO_CREDIT}. <a href="${GRIFFIN_SITE}" target="_blank" rel="noopener noreferrer">Griffin Rutherford</a>. <a href="mailto:${INQUIRY_EMAIL}">${INQUIRY_EMAIL}</a> for purchasing inquiries.</p>
         </div>
     </footer>
 </body>
@@ -284,7 +284,7 @@ function galleryIndex() {
     <main class="art-gallery-page">
         <div class="container">
             <h1 class="section-title">Photography</h1>
-            <p class="section-intro">Landscapes, light, and daily vistas by Griffin Rutherford. All photographs ${PHOTO_CREDIT}. <a href="mailto:${GRIFFIN_EMAIL}">${GRIFFIN_EMAIL}</a> for purchasing inquiries.</p>
+            <p class="section-intro">Landscapes, light, and daily vistas by Griffin Rutherford. All photographs ${PHOTO_CREDIT}. <a href="mailto:${INQUIRY_EMAIL}">${INQUIRY_EMAIL}</a> for purchasing inquiries.</p>
 
             <div class="art-search">
                 <label class="art-search__label" for="photo-search-input">Search photography</label>
@@ -304,7 +304,7 @@ ${cards}
 
     <footer class="footer">
         <div class="container">
-            <p>${PHOTO_CREDIT}. <a href="${GRIFFIN_SITE}" target="_blank" rel="noopener noreferrer">Griffin Rutherford</a>. <a href="mailto:${GRIFFIN_EMAIL}">${GRIFFIN_EMAIL}</a> for purchasing inquiries.</p>
+            <p>${PHOTO_CREDIT}. <a href="${GRIFFIN_SITE}" target="_blank" rel="noopener noreferrer">Griffin Rutherford</a>. <a href="mailto:${INQUIRY_EMAIL}">${INQUIRY_EMAIL}</a> for purchasing inquiries.</p>
         </div>
     </footer>
 
