@@ -239,8 +239,70 @@ section {
     border-bottom-color: var(--accent-gold);
 }
 
-.nav-toggle {
+/* Primary navigation collapses into a hamburger popup at every width. */
+.nav:not(.art-detail-nav) .nav-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: var(--spacing-md);
+    left: auto;
+    z-index: 1001;
+    flex-direction: column;
+    gap: 0.15rem;
+    width: min(264px, calc(100vw - 2 * var(--spacing-sm)));
+    margin: 0;
+    padding: 0.5rem;
+    background: rgba(250, 246, 240, 0.985);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    box-shadow: 0 18px 40px rgba(26, 15, 10, 0.16);
     display: none;
+}
+
+.nav:not(.art-detail-nav) .nav-menu.is-open {
+    display: flex;
+    animation: nav-pop 0.18s ease;
+}
+
+@keyframes nav-pop {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.nav:not(.art-detail-nav) .nav-menu a {
+    display: block;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 0;
+    border-radius: var(--radius-sm);
+}
+
+.nav:not(.art-detail-nav) .nav-menu a:hover,
+.nav:not(.art-detail-nav) .nav-menu a.active {
+    color: var(--accent-gold);
+    border-bottom-color: transparent;
+    background: rgba(212, 165, 116, 0.14);
+}
+
+/* Dim scrim behind the open popup. */
+body.nav-open::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(26, 15, 10, 0.28);
+    animation: nav-scrim 0.18s ease;
+}
+
+@keyframes nav-scrim {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.nav-toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 2.75rem;
     height: 2.75rem;
     padding: 0.65rem;
@@ -249,6 +311,13 @@ section {
     background: transparent;
     color: var(--primary-dark);
     cursor: pointer;
+    transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.nav-toggle:hover,
+.nav-toggle[aria-expanded="true"] {
+    border-color: var(--accent-gold);
+    background: rgba(212, 165, 116, 0.1);
 }
 
 .nav-toggle__line {
@@ -1846,41 +1915,18 @@ body.excerpt-open {
     }
 
     .nav-toggle {
-        display: block;
         flex: 0 0 auto;
     }
 
-    .nav-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
+    /* Widen the primary popup toward full-width on small screens. */
+    .nav:not(.art-detail-nav) .nav-menu {
         right: var(--spacing-sm);
         left: var(--spacing-sm);
-        padding: 0.75rem;
-        background: rgba(250, 246, 240, 0.98);
-        border: 1px solid var(--border-light);
-        border-radius: var(--radius-md);
-        box-shadow: 0 12px 24px rgba(26, 15, 10, 0.14);
-    }
-
-    .nav-menu.is-open {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.25rem;
+        width: auto;
     }
 
     body.nav-open {
         overflow: hidden;
-    }
-
-    .nav-menu li {
-        text-align: center;
-    }
-
-    .nav-menu a {
-        display: block;
-        padding: 0.65rem 0.4rem;
-        font-size: 0.875rem;
     }
 
     .art-detail-nav .nav-menu {

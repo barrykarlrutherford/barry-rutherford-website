@@ -64,9 +64,9 @@
         }
     });
 
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) closeMenu();
-    });
+    // The hamburger drives navigation at every width now, so just reset
+    // any open state on resize to avoid a stale popup.
+    window.addEventListener('resize', closeMenu);
 })();
 
 // Replace the static latest-writing fallback with public post metadata from Beehiiv.
