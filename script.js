@@ -142,6 +142,56 @@
         });
 })();
 
+// Replace the static project-card post lists with the latest Ghost posts.
+(() => {
+    const lists = document.querySelectorAll('[data-blog-previews]');
+    if (!lists.length) return;
+
+    const dateFormatter = new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    });
+
+    const createPostItem = post => {
+        const item = document.createElement('li');
+        item.className = 'project-post';
+
+        const title = document.createElement('a');
+        title.className = 'project-post__title';
+        title.href = post.url;
+        title.target = '_blank';
+        title.rel = 'noopener noreferrer';
+        title.textContent = post.title;
+        item.append(title);
+
+        const date = document.createElement('p');
+        date.className = 'project-post__date';
+        date.textContent = dateFormatter.format(new Date(post.publishedAt));
+        item.append(date);
+
+        return item;
+    };
+
+    fetch('/api/blog-previews', { headers: { Accept: 'application/json' } })
+        .then(response => {
+            if (!response.ok) throw new Error(`Blog previews returned ${response.status}`);
+            return response.json();
+        })
+        .then(payload => {
+            const data = payload.data || {};
+            lists.forEach(list => {
+                const posts = data[list.dataset.blogPreviews];
+                // Keep the static card for any blog that returned nothing.
+                if (!Array.isArray(posts) || !posts.length) return;
+                list.replaceChildren(...posts.map(createPostItem));
+            });
+        })
+        .catch(() => {
+            // Keep the server-rendered post cards as the fallback.
+        });
+})();
+
 // Give the fixed header a more defined state after leaving the top.
 (() => {
     const nav = document.querySelector('.nav');

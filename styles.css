@@ -719,6 +719,53 @@ body.nav-open::before {
     font-size: 1.0625rem;
 }
 
+/* Latest Ghost posts inside a project card. */
+.project-posts {
+    margin-bottom: var(--spacing-md);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-light);
+}
+
+.project-posts__label {
+    color: var(--text-light);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-xs);
+}
+
+.project-posts__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.project-post + .project-post {
+    margin-top: var(--spacing-sm);
+}
+
+.project-post__title {
+    color: var(--text-dark);
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    border-bottom: 1px solid transparent;
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+.project-post__title:hover,
+.project-post__title:focus-visible {
+    color: var(--accent-deep);
+    border-bottom-color: var(--accent-gold);
+}
+
+.project-post__date {
+    color: var(--text-light);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.8125rem;
+    margin-top: 0.15rem;
+}
+
 .project-link {
     display: inline-block;
     color: var(--accent-deep);
