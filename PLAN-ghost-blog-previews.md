@@ -205,8 +205,13 @@ section for a component that only shares a data shape.
    `Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' })`
    the Essays list uses, so date formatting is consistent across the homepage.
 3. Keep the `.catch()` that silently leaves the fallback in place, and
-   `textContent` for every field. Feature images are not rendered in this
-   layout, which also sidesteps the external-CDN image question entirely.
+   `textContent` for every field.
+4. Each item renders the Ghost feature image as a fixed-size thumbnail beside
+   the title, date, and a two-line-clamped excerpt. Images come from an external
+   CDN, so they carry `loading="lazy"`, `decoding="async"`,
+   `referrerpolicy="no-referrer"`, and explicit `width`/`height` to avoid layout
+   shift. The static fallback stays text-only rather than hardcoding a volatile
+   CDN URL into `index.html`.
 
 ---
 

@@ -157,19 +157,52 @@
         const item = document.createElement('li');
         item.className = 'project-post';
 
+        if (post.thumbnailUrl) {
+            const imageLink = document.createElement('a');
+            imageLink.className = 'project-post__image-link';
+            imageLink.href = post.url;
+            imageLink.target = '_blank';
+            imageLink.rel = 'noopener noreferrer';
+            imageLink.tabIndex = -1;
+            imageLink.setAttribute('aria-hidden', 'true');
+
+            const image = document.createElement('img');
+            image.className = 'project-post__image';
+            image.src = post.thumbnailUrl;
+            image.alt = '';
+            image.width = 160;
+            image.height = 107;
+            image.loading = 'lazy';
+            image.decoding = 'async';
+            image.referrerPolicy = 'no-referrer';
+            imageLink.append(image);
+            item.append(imageLink);
+        }
+
+        const body = document.createElement('div');
+        body.className = 'project-post__body';
+
         const title = document.createElement('a');
         title.className = 'project-post__title';
         title.href = post.url;
         title.target = '_blank';
         title.rel = 'noopener noreferrer';
         title.textContent = post.title;
-        item.append(title);
+        body.append(title);
 
         const date = document.createElement('p');
         date.className = 'project-post__date';
         date.textContent = dateFormatter.format(new Date(post.publishedAt));
-        item.append(date);
+        body.append(date);
 
+        if (post.excerpt) {
+            const excerpt = document.createElement('p');
+            excerpt.className = 'project-post__excerpt';
+            excerpt.textContent = post.excerpt;
+            body.append(excerpt);
+        }
+
+        item.append(body);
         return item;
     };
 
