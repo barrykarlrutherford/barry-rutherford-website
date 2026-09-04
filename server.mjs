@@ -8,12 +8,17 @@ const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 8080);
 const beehiivApiKey = process.env.BEEHIIV_API_KEY;
 const beehiivPublicationId = process.env.BEEHIIV_PUBLICATION_ID;
-const beehiivCacheTtlMs = 15 * 60 * 1000;
-const beehiivCache = {
-  posts: null,
-  expiresAt: 0,
-  request: null
+const cacheTtlMs = 15 * 60 * 1000;
+const staleGraceMs = 5 * 60 * 1000;
+const caches = new Map();
+
+// Ghost publishes a public RSS feed per site, so previews need no credentials.
+// Sources are a fixed allowlist: never derive a feed URL from request input.
+const ghostSources = {
+  malestrum: { feedUrl: 'https://malestrum.com/rss/', host: 'malestrum.com' },
+  breakwater: { feedUrl: 'https://blog.breakwaterops.com/rss/', host: 'blog.breakwaterops.com' }
 };
+const postsPerSource = 2;
 
 const mimeTypes = {
   '.css': 'text/css; charset=UTF-8',
@@ -120,32 +125,154 @@ async function requestLatestWriting() {
     .slice(0, 3);
 }
 
-async function latestWriting() {
-  if (beehiivCache.posts && beehiivCache.expiresAt > Date.now()) {
-    return beehiivCache.posts;
+// Serve fresh values, dedupe concurrent loads, and fall back to stale data for a
+// short grace period when the upstream fails.
+async function cached(key, loader) {
+  let entry = caches.get(key);
+  if (!entry) {
+    entry = { value: null, expiresAt: 0, request: null };
+    caches.set(key, entry);
   }
 
-  if (!beehiivCache.request) {
-    beehiivCache.request = requestLatestWriting()
-      .then(posts => {
-        beehiivCache.posts = posts;
-        beehiivCache.expiresAt = Date.now() + beehiivCacheTtlMs;
-        return posts;
+  if (entry.value && entry.expiresAt > Date.now()) {
+    return entry.value;
+  }
+
+  if (!entry.request) {
+    entry.request = loader()
+      .then(value => {
+        entry.value = value;
+        entry.expiresAt = Date.now() + cacheTtlMs;
+        return value;
       })
       .finally(() => {
-        beehiivCache.request = null;
+        entry.request = null;
       });
   }
 
   try {
-    return await beehiivCache.request;
+    return await entry.request;
   } catch (error) {
-    if (beehiivCache.posts) {
-      beehiivCache.expiresAt = Date.now() + 5 * 60 * 1000;
-      return beehiivCache.posts;
+    if (entry.value) {
+      entry.expiresAt = Date.now() + staleGraceMs;
+      return entry.value;
     }
     throw error;
   }
+}
+
+function latestWriting() {
+  return cached('beehiiv', requestLatestWriting);
+}
+
+const xmlEntities = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" };
+
+function decodeXml(value) {
+  return value.replace(/&(#x[0-9a-f]+|#[0-9]+|[a-z]+);/gi, (match, entity) => {
+    if (entity.startsWith('#')) {
+      const codePoint = entity[1].toLowerCase() === 'x'
+        ? Number.parseInt(entity.slice(2), 16)
+        : Number.parseInt(entity.slice(1), 10);
+      if (!Number.isInteger(codePoint) || codePoint < 0 || codePoint > 0x10ffff) return match;
+      return String.fromCodePoint(codePoint);
+    }
+    return xmlEntities[entity.toLowerCase()] ?? match;
+  });
+}
+
+// Ghost generates these feeds, so a targeted extractor is enough — this never
+// needs to become a general XML parser.
+function elementText(itemXml, tagName) {
+  const match = itemXml.match(new RegExp(`<${tagName}(?:\\s[^>]*)?>([\\s\\S]*?)</${tagName}>`, 'i'));
+  if (!match) return '';
+
+  const raw = match[1].trim();
+  const cdata = raw.match(/^<!\[CDATA\[([\s\S]*?)\]\]>$/);
+  return decodeXml(cdata ? cdata[1] : raw).trim();
+}
+
+function elementAttribute(itemXml, tagName, attribute) {
+  const element = itemXml.match(new RegExp(`<${tagName}(\\s[^>]*?)/?>`, 'i'));
+  if (!element) return '';
+
+  const value = element[1].match(new RegExp(`${attribute}="([^"]*)"`, 'i'));
+  return value ? decodeXml(value[1]) : '';
+}
+
+function plainText(value) {
+  return value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function normalizeGhostPost(itemXml, source) {
+  const title = elementText(itemXml, 'title');
+  const url = publicUrl(elementText(itemXml, 'link'));
+  const publishedAt = new Date(elementText(itemXml, 'pubDate'));
+
+  if (!title || !url || Number.isNaN(publishedAt.getTime())) return null;
+  // A post must live on the site it claims to, so a bad feed cannot place
+  // third-party links on the homepage.
+  if (new URL(url).hostname !== source.host) return null;
+  if (publishedAt.getTime() > Date.now()) return null;
+
+  return {
+    title,
+    excerpt: normalizeExcerpt(plainText(elementText(itemXml, 'description'))),
+    url,
+    thumbnailUrl: publicUrl(elementAttribute(itemXml, 'media:content', 'url')),
+    publishedAt: publishedAt.toISOString()
+  };
+}
+
+async function requestGhostPosts(source) {
+  const feedResponse = await fetch(source.feedUrl, {
+    headers: { Accept: 'application/rss+xml, application/xml;q=0.9' },
+    signal: AbortSignal.timeout(8000)
+  });
+
+  if (!feedResponse.ok) {
+    throw new Error(`${source.feedUrl} returned ${feedResponse.status}`);
+  }
+
+  const feed = await feedResponse.text();
+  const posts = (feed.match(/<item(?:\s[^>]*)?>[\s\S]*?<\/item>/g) || [])
+    .map(item => normalizeGhostPost(item, source))
+    .filter(Boolean)
+    .slice(0, postsPerSource);
+
+  // Treat an unreadable feed as a failure so the static fallback survives.
+  if (!posts.length) {
+    throw new Error(`${source.feedUrl} returned no usable items`);
+  }
+
+  return posts;
+}
+
+// One dead feed must not blank the other, so each source resolves independently.
+async function blogPreviews() {
+  const names = Object.keys(ghostSources);
+  const results = await Promise.allSettled(
+    names.map(name => cached(`ghost:${name}`, () => requestGhostPosts(ghostSources[name])))
+  );
+
+  const data = {};
+  let available = 0;
+
+  results.forEach((result, index) => {
+    if (result.status === 'fulfilled') {
+      data[names[index]] = result.value;
+      available += 1;
+      return;
+    }
+
+    console.error(`Unable to load ${names[index]} posts:`, result.reason.message);
+    data[names[index]] = [];
+  });
+
+  if (!available) {
+    throw new Error('No blog feeds are available.');
+  }
+
+  return data;
 }
 
 function sendJson(response, status, payload) {
@@ -181,6 +308,17 @@ const server = createServer(async (request, response) => {
       } catch (error) {
         console.error('Unable to load latest writing from Beehiiv:', error.message);
         sendJson(response, 502, { error: 'Latest writing is temporarily unavailable.' });
+      }
+      return;
+    }
+
+    if (requestUrl.pathname === '/api/blog-previews') {
+      try {
+        const data = await blogPreviews();
+        sendJson(response, 200, { data });
+      } catch (error) {
+        console.error('Unable to load blog previews:', error.message);
+        sendJson(response, 502, { error: 'Blog previews are temporarily unavailable.' });
       }
       return;
     }
